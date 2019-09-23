@@ -21,64 +21,70 @@
 
     <!-- obtain vars -->
     <script>
-        var redemption = 'transfer';
-
         function setValues(){
-            var restaurantSpend, grocerySpend, flightSpend, miscSpend;
-            var airlineFeeCredit, diningCredit;
-            var spendTotal, benefitsTotal, pointsTotal;
-            var pointValuation;
+            var monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend;
+            var monthlyAirlineFeeCredit, monthlyDiningCredit;
+            var monthlySpendTotal, benefitsTotal, monthlyPointsTotal;
+            var monthlyPointsValuation;
 
-            // personal spend
-            restaurantSpend = parseFloat(document.getElementById('restaurantInputBox').value);
-            grocerySpend = parseFloat(document.getElementById('groceryInputBox').value);
-            flightSpend = parseFloat(document.getElementById('flightInputBox').value);
-            miscSpend = parseFloat(document.getElementById('miscInputBox').value);
+            // yearly personal spend
+            monthlyRestaurantSpend = parseFloat(document.getElementById('monthlyRestaurantInput').value);
+            monthlyGrocerySpend = parseFloat(document.getElementById('monthlyGroceryInput').value);
+            monthlyFlightSpend = parseFloat(document.getElementById('monthlyFlightInput').value);
+            monthlyMiscSpend = parseFloat(document.getElementById('monthlyMiscInput').value);
 
-            if (isNaN(restaurantSpend))
-                restaurantSpend = 0;
-            if (isNaN(grocerySpend))
-                grocerySpend = 0;
-            if (isNaN(flightSpend))
-                flightSpend = 0;
-            if (isNaN(miscSpend))
-                miscSpend = 0;
-            
             // benefits
-            airlineFeeCredit = parseFloat(document.getElementById('airlineFeeInputBox').value);
-            diningCredit = parseFloat(document.getElementById('diningCreditInputBox').value);
+            monthlyAirlineFeeCredit = parseFloat(document.getElementById('monthlyAirlineFeeInput').value);
+            monthlyDiningCredit = parseFloat(document.getElementById('monthlyDiningCreditInput').value);
 
-            if (isNaN(airlineFeeCredit))
-                airlineFeeCredit = 0
-            if (isNaN(diningCredit))
-                diningCredit = 0
+            if (isNaN(monthlyRestaurantSpend))
+                monthlyRestaurantSpend = 0;
+            if (isNaN(monthlyGrocerySpend))
+                monthlyGrocerySpend = 0;
+            if (isNaN(monthlyFlightSpend))
+                monthlyFlightSpend = 0;
+            if (isNaN(monthlyMiscSpend))
+                monthlyMiscSpend = 0;
+            
+            if (isNaN(monthlyAirlineFeeCredit))
+                monthlyAirlineFeeCredit = 0;
+            if (isNaN(monthlyDiningCredit))
+                monthlyDiningCredit = 0;
 
 
-            spendTotal = restaurantSpend + grocerySpend + flightSpend + miscSpend;
-            benefitsTotal = airlineFeeCredit + diningCredit;
-            pointsTotal = restaurantSpend * 4 + grocerySpend * 4 + flightSpend * 3 + miscSpend;
+            // calculations
+            monthlySpendTotal = monthlyRestaurantSpend + monthlyGrocerySpend + monthlyFlightSpend + monthlyMiscSpend;
+            benefitsTotal = monthlyAirlineFeeCredit + monthlyDiningCredit;
+            monthlyPointsTotal = monthlyRestaurantSpend * 4 + monthlyGrocerySpend * 4 + monthlyFlightSpend * 3 + monthlyMiscSpend;
 
-            document.getElementById('totalOutput').innerHTML = Math.round(spendTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            // set values in document
+            document.getElementById('monthlyTotal').innerHTML = Math.round(monthlySpendTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            document.getElementById('monthlyBenefits').innerHTML = Math.round(benefitsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            document.getElementById('monthlyTotalPoints').innerHTML = Math.round(monthlyPointsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+            // calculate with redemption method
+            if (document.getElementById('monthlyCreditsRadio').checked == true)
+                monthlyPointsValuation = (monthlyPointsTotal * 0.6)  / 100
+            else if (document.getElementById('monthlyTravelRadio').checked == true)
+                monthlyPointsValuation = monthlyPointsTotal / 100
+            else if (document.getElementById('monthlyTransferRadio').checked == true)
+                monthlyPointsValuation = monthlyPointsTotal * 2 / 100
+            var yearlyPointsValuation = monthlyPointsValuation * 12 + benefitsTotal;
+            monthlyPointsValuation = monthlyPointsValuation + benefitsTotal;
+            document.getElementById('monthlyMRValuation').innerHTML = Math.round(monthlyPointsValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+            // yearly stuff
+
+            var yearlySpendTotal = monthlySpendTotal * 12;
+            var yearlyPointsTotal = monthlyPointsTotal * 12;
+
+            document.getElementById('totalOutput').innerHTML = Math.round(yearlySpendTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             document.getElementById('totalBenefits').innerHTML = Math.round(benefitsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            document.getElementById('totalPoints').innerHTML = Math.round(pointsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-            if (redemption == 'credit')
-                pointValuation = (pointsTotal * 0.6)  / 100
-            else if (redemption == 'travel')
-                pointValuation = pointsTotal / 100
-            else if (redemption == 'transfer')
-                pointValuation = pointsTotal * 2 / 100
-
-            pointValuation = pointValuation - 250 + benefitsTotal;
-            document.getElementById('MRValuation').innerHTML = Math.round(pointValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            document.getElementById('totalPoints').innerHTML = Math.round(yearlyPointsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            document.getElementById('yearlyMRValuation').innerHTML = Math.round(yearlyPointsValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
         }
-
-        function setRedemption(redeem){
-            redemption = redeem;
-            setValues();
-        }
-
+       
         
     </script>
 
@@ -86,46 +92,70 @@
   </head>
 
   <body onload="setValues()">
-    <h4 class="display-4">AMEX Gold Valuation Calculator</h4>
+    <h4 class="display-4">AMEX Trifecta Valuation Calculator</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h5>Monthly spend:</h5>
+                <p>Restaurants worldwide (4X points): $<input value=400 type="number" id="monthlyRestaurantInput" onkeyup="setValues()"></p>
+                <p>US Supermarkets (4X points): $<input value=400 type="number" id="monthlyGroceryInput" onkeyup="setValues()"></p>
+                <p>Flights (3X points): $<input value=0 type="number" id="monthlyFlightInput" onkeyup="setValues()"></p>
+                <p>All Other Purchases (1X points): $<input value=0 type="number" id="monthlyMiscInput" onkeyup="setValues()"></p>
 
-    <div class="border p-3">
-        <h5>Yearly Spend:</h5>
-        
-        <p>Restaurants worldwide (4X points): $<input value=4000 type="number" id="restaurantInputBox" onkeyup="setValues()"></p>
+                <h5>Benefits valuation:</h5>
+                <p>$100 airline fee: $<input value=0 type="number" id="monthlyAirlineFeeInput" onkeyup="setValues()"></p>
+                <p>$120 dining credit: $<input value=0 type="number" id="monthlyDiningCreditInput" onkeyup="setValues()"></p>
 
-        <p>US Supermarkets (4X points): $<input value=3000 type="number" id="groceryInputBox" onkeyup="setValues()"></p>
+                <h5>Monthly spend summary:</h5>
+                <p>Total spend: $<span id="monthlyTotal"></span></p>
+                <p>Total benefits: $<span id="monthlyBenefits"></span></p>
+                <p>Total points earned: <span id="monthlyTotalPoints"></span> MR</p>
 
-        <p>Flights (3X points): $<input value=500 type="number" id="flightInputBox" onkeyup="setValues()"></p>
+                <h5>Yearly spend summary:</h5>
 
-        <p>All Other Purchases (1X points): $<input value=5000 type="number" id="miscInputBox" onkeyup="setValues()"></p>
+                <p>Total spend: $<span id="totalOutput"></span></p>
+                <p>Total benefits: $<span id="totalBenefits"></span></p>
+                <p>Total points earned: <span id="totalPoints"></span> MR</p>
 
-        <h5>Benefits valuation:</h5>
+                <h5>Redemption method:</h5>
+                <div>
+                    <input type="radio" id="monthlyCreditsRadio" name="monthlyBenefitsRadioGroup" onclick="setValues()">
+                    <label>Statement credit = 0.6 CPP</label>
+                </div>
+                <div>
+                    <input type="radio" id="monthlyTravelRadio" name="monthlyBenefitsRadioGroup" onclick="setValues()">
+                    <label>Travel = 1 CPP</label>
+                </div>
+                <div>
+                    <input type="radio" id="monthlyTransferRadio" name="monthlyBenefitsRadioGroup" checked onclick="setValues()">
+                    <label>Transfer Partners = 2 CPP</label>
+                </div>
 
-        <p>$100 airline fee: $<input value=100 type="number" id="airlineFeeInputBox" onkeyup="setValues()"></p>
-        <p>$120 dining credit: $<input value=120 type="number" id="diningCreditInputBox" onkeyup="setValues()"></p>
+                <h5>Monthly MR Valuation total (+ benefits)</h5>
+                <p>$<span id="monthlyMRValuation"></span></p>
 
-        <h5>Spend summary:</h5>
+                <h5>Yearly MR Valuation total (+ benefits)</h5>
+                <p>$<span id="yearlyMRValuation"></span></p>
+            </div>
 
-        <p>Total spend: $<span id="totalOutput"></span></p>
-        <p>Total benefits: $<span id="totalBenefits"></span></p>
-        <p>Total points earned: <span id="totalPoints"></span> MR</p>
 
-        <h5>Redemption method:</h5>
-        <div>
-            <input type="radio" id="huey" name="drone" onclick="setRedemption('credit')">
-            <label>Statement credit = 0.6 CPP</label>
+
+
+
+
+
+
+
+
+
+
+            <div class="col-sm">
+                <h5>Chase Trifecta tba:</h5>
+                
+
+            </div>
         </div>
-        <div>
-            <input type="radio" id="placegholder" name="drone" onclick="setRedemption('travel')">
-            <label>Travel = 1 CPP</label>
-        </div>
-        <div>
-            <input type="radio" id="louie" name="drone" checked onclick="setRedemption('transfer')">
-            <label>Transfer Partners = 2 CPP</label>
-        </div>
-
-        <h5>MR Valuation total (-$250 annual fee + benefits)</h5>
-        <p>$<span id="MRValuation"></span></p>
+    </div>
 
 
 
