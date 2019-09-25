@@ -26,147 +26,13 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+    <!-- custom js -->
+    <script type="text/javascript" src="js/calculations.js"></script>
 
-
-
-    <!-- icon -->
+    <!-- icons -->
     <link rel="icon" type="image/x-icon"  href="assets/favicon.png">
 
-
     <title>AMEX Gold Valuation Calculator</title>
-
-
-    <!-- obtain vars -->
-    <script>
-        var bbp = true, gold = true, plat = true, cfu = true, csp = true, csr = true;
-
-        function setValues(){
-            var monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend;
-            var monthlyAirlineFeeCredit, monthlyDiningCredit;
-            var monthlySpendTotal, benefitsTotal, monthlyPointsTotal;
-            var monthlyPointsValuation;
-
-            // yearly personal spend
-            monthlyRestaurantSpend = parseFloat(document.getElementById('monthlyRestaurantInput').value);
-            monthlyGrocerySpend = parseFloat(document.getElementById('monthlyGroceryInput').value);
-            monthlyFlightSpend = parseFloat(document.getElementById('monthlyFlightInput').value);
-            monthlyMiscSpend = parseFloat(document.getElementById('monthlyMiscInput').value);
-
-            // benefits
-            monthlyAirlineFeeCredit = parseFloat(document.getElementById('monthlyAirlineFeeInput').value);
-            monthlyDiningCredit = parseFloat(document.getElementById('monthlyDiningCreditInput').value);
-
-            if (isNaN(monthlyRestaurantSpend))
-                monthlyRestaurantSpend = 0;
-            if (isNaN(monthlyGrocerySpend))
-                monthlyGrocerySpend = 0;
-            if (isNaN(monthlyFlightSpend))
-                monthlyFlightSpend = 0;
-            if (isNaN(monthlyMiscSpend))
-                monthlyMiscSpend = 0;
-            
-            if (isNaN(monthlyAirlineFeeCredit))
-                monthlyAirlineFeeCredit = 0;
-            if (isNaN(monthlyDiningCredit))
-                monthlyDiningCredit = 0;
-
-
-            // calculations
-            monthlySpendTotal = monthlyRestaurantSpend + monthlyGrocerySpend + monthlyFlightSpend + monthlyMiscSpend;
-            benefitsTotal = monthlyAirlineFeeCredit + monthlyDiningCredit;
-            monthlyPointsTotal = monthlyRestaurantSpend * 4 + monthlyGrocerySpend * 4 + monthlyFlightSpend * 3 + monthlyMiscSpend;
-
-            // set values in document
-            document.getElementById('monthlyTotal').innerHTML = Math.round(monthlySpendTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            document.getElementById('monthlyBenefits').innerHTML = Math.round(benefitsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            document.getElementById('monthlyTotalPoints').innerHTML = Math.round(monthlyPointsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-            // calculate with redemption method
-            if (document.getElementById('monthlyCreditsRadio').checked == true)
-                monthlyPointsValuation = (monthlyPointsTotal * 0.6)  / 100
-            else if (document.getElementById('monthlyTravelRadio').checked == true)
-                monthlyPointsValuation = monthlyPointsTotal / 100
-            else if (document.getElementById('monthlyTransferRadio').checked == true)
-                monthlyPointsValuation = monthlyPointsTotal * 2 / 100
-            var yearlyPointsValuation = monthlyPointsValuation * 12 + benefitsTotal;
-            monthlyPointsValuation = monthlyPointsValuation + benefitsTotal;
-            document.getElementById('monthlyMRValuation').innerHTML = Math.round(monthlyPointsValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-            // yearly stuff
-
-            var yearlySpendTotal = monthlySpendTotal * 12;
-            var yearlyPointsTotal = monthlyPointsTotal * 12;
-
-            document.getElementById('totalOutput').innerHTML = Math.round(yearlySpendTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            document.getElementById('totalBenefits').innerHTML = Math.round(benefitsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            document.getElementById('totalPoints').innerHTML = Math.round(yearlyPointsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            document.getElementById('yearlyMRValuation').innerHTML = Math.round(yearlyPointsValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-
-        // bbp, gold, plat, cfu, csp, csr;
-        function setPlat(){
-            if (plat == true){
-                plat = false;
-                $("#platToggle").html('<i class="material-icons">add</i>'); 
-            }
-            else{
-                plat = true;
-                $("#platToggle").html('<i class="material-icons">check</i>'); 
-
-            }
-        }
-        function setCSR(){
-            if (csr == true){
-                csr = false;
-                $("#csrToggle").html('<i class="material-icons">add</i>'); 
-            }
-            else{
-                csr = true;
-                $("#csrToggle").html('<i class="material-icons">check</i>');
-            }
-        }
-        function setGold(){
-            if (gold == true){
-                gold = false;
-                $("#goldToggle").html('<i class="material-icons">add</i>'); 
-            }
-            else{
-                gold = true;
-                $("#goldToggle").html('<i class="material-icons">check</i>');
-            }
-        }
-        function setCSP(){
-            if (csp == true){
-                csp = false;
-                $("#cspToggle").html('<i class="material-icons">add</i>'); 
-            }
-            else{
-                csp = true;
-                $("#cspToggle").html('<i class="material-icons">check</i>');
-            }
-        }
-        function setBBP(){
-            if (bbp == true){
-                bbp = false;
-                $("#bbpToggle").html('<i class="material-icons">add</i>'); 
-            }
-            else{
-                bbp = true;
-                $("#bbpToggle").html('<i class="material-icons">check</i>');
-            }
-        }
-        function setCFU(){
-            if (cfu == true){
-                cfu = false;
-                $("#cfuToggle").html('<i class="material-icons">add</i>'); 
-            }
-            else{
-                cfu = true;
-                $("#cfuToggle").html('<i class="material-icons">check</i>');
-            }
-        }
-        
-    </script>
 
   </head>
 
@@ -267,20 +133,13 @@
             <div class="col s6">
                 <h3>Spend categories</h3>
                 <h5>Monthly spend:</h5>
-               <!--  
-                <p><i class="material-icons">fastfood</i> Restaurants worldwide: $<input value=400 type="number" id="monthlyRestaurantInput" onkeyup="setValues()"></p>
-                <p><i class="material-icons">local_grocery_store</i> US Supermarkets: $<input value=400 type="number" id="monthlyGroceryInput" onkeyup="setValues()"></p>
-                <p><i class="material-icons">flight_takeoff</i> Flights: $<input value=0 type="number" id="monthlyFlightInput" onkeyup="setValues()"></p>
-                <p><i class="material-icons">credit_card</i> All Other Purchases: $<input value=0 type="number" id="monthlyMiscInput" onkeyup="setValues()"></p>
-                 -->
+
                 <div class="row">
                     <i class="material-icons prefix">fastfood</i>
                     <div class="input-field inline">
                         <input value=400 type="number" id="monthlyRestaurantInput" onkeyup="setValues()">
                         <label for="monthlyRestaurantInput">Restaurants worldwide</label>
                     </div>
-
-
 
                     <i class="material-icons prefix">local_grocery_store</i>
                     <div class="input-field inline">
@@ -292,10 +151,9 @@
                 <div class="row">
                     <i class="material-icons prefix">flight_takeoff</i>
                     <div class="input-field inline">
-                        <input value=20 type="number" id="monthlyFlightInput" onkeyup="setValues()">
+                        <input type="number" id="monthlyFlightInput" onkeyup="setValues()">
                         <label for="monthlyFlightInput">Flights</label>
                     </div>
-
 
                     <i class="material-icons prefix">credit_card</i>
                     <div class="input-field inline">
@@ -347,8 +205,6 @@
 
         </div>
     </div>
-
-
 
 
     <div class="container">
