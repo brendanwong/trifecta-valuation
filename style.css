@@ -1,7 +1,22 @@
+/*remove number arrows in form*/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+
+/*adjust radio button color*/
+[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:before, [type="radio"].with-gap:checked + span:after {
+ 
+  border: 2px solid #2296F3 !important;
+}
+ 
+ 
+ 
+[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after {
+ 
+  background-color: #2296F3 !important;
 }
 

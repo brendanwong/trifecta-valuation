@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 
     <!-- chartjs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>  
@@ -16,11 +16,30 @@
     <link rel="stylesheet" type="text/css" href="style.css"/>
 
 
+    <!-- materialize -->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
+
+
+    <!-- icon -->
+    <link rel="icon" type="image/x-icon"  href="assets/favicon.png">
+
+
     <title>AMEX Gold Valuation Calculator</title>
 
 
     <!-- obtain vars -->
     <script>
+        var bbp = true, gold = true, plat = true, cfu = true, csp = true, csr = true;
+
         function setValues(){
             var monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend;
             var monthlyAirlineFeeCredit, monthlyDiningCredit;
@@ -82,28 +101,211 @@
             document.getElementById('totalBenefits').innerHTML = Math.round(benefitsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             document.getElementById('totalPoints').innerHTML = Math.round(yearlyPointsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             document.getElementById('yearlyMRValuation').innerHTML = Math.round(yearlyPointsValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
         }
-       
+
+        // bbp, gold, plat, cfu, csp, csr;
+        function setPlat(){
+            if (plat == true){
+                plat = false;
+                $("#platToggle").html('<i class="material-icons">add</i>'); 
+            }
+            else{
+                plat = true;
+                $("#platToggle").html('<i class="material-icons">check</i>'); 
+
+            }
+        }
+        function setCSR(){
+            if (csr == true){
+                csr = false;
+                $("#csrToggle").html('<i class="material-icons">add</i>'); 
+            }
+            else{
+                csr = true;
+                $("#csrToggle").html('<i class="material-icons">check</i>');
+            }
+        }
+        function setGold(){
+            if (gold == true){
+                gold = false;
+                $("#goldToggle").html('<i class="material-icons">add</i>'); 
+            }
+            else{
+                gold = true;
+                $("#goldToggle").html('<i class="material-icons">check</i>');
+            }
+        }
+        function setCSP(){
+            if (csp == true){
+                csp = false;
+                $("#cspToggle").html('<i class="material-icons">add</i>'); 
+            }
+            else{
+                csp = true;
+                $("#cspToggle").html('<i class="material-icons">check</i>');
+            }
+        }
+        function setBBP(){
+            if (bbp == true){
+                bbp = false;
+                $("#bbpToggle").html('<i class="material-icons">add</i>'); 
+            }
+            else{
+                bbp = true;
+                $("#bbpToggle").html('<i class="material-icons">check</i>');
+            }
+        }
+        function setCFU(){
+            if (cfu == true){
+                cfu = false;
+                $("#cfuToggle").html('<i class="material-icons">add</i>'); 
+            }
+            else{
+                cfu = true;
+                $("#cfuToggle").html('<i class="material-icons">check</i>');
+            }
+        }
         
     </script>
-
 
   </head>
 
   <body onload="setValues()">
-    <h4 class="display-4">AMEX Trifecta Valuation Calculator</h4>
+    <div>
+        <h2 class="center-align">AMEX Trifecta vs. Chase Trifecta Valuation</h2>
+    </div>
     <div class="container">
         <div class="row">
-            <div class="col-sm">
-                <h5>Monthly spend:</h5>
-                <p>Restaurants worldwide (4X points): $<input value=400 type="number" id="monthlyRestaurantInput" onkeyup="setValues()"></p>
-                <p>US Supermarkets (4X points): $<input value=400 type="number" id="monthlyGroceryInput" onkeyup="setValues()"></p>
-                <p>Flights (3X points): $<input value=0 type="number" id="monthlyFlightInput" onkeyup="setValues()"></p>
-                <p>All Other Purchases (1X points): $<input value=0 type="number" id="monthlyMiscInput" onkeyup="setValues()"></p>
+            <div class="col s6">
+                <h3 class="left-align">Cards</h3>
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="assets/amex-plat.png">
+                                <a id="plat-color" class="btn-floating halfway-fab waves-effect waves-light blue"><i id="platToggle" class="material-icons" onclick="setPlat()">check</i></a>
+                            </div>
+                            <div class="card-content">
+                                <h5>AMEX Platinum</h5>
+                                <p>5X points for flights booked directly with airlines or through AMEX. 5X points for hotels booked on amextravel.com. $200 airline fee credit. Fee credit for Global Entry ($100) or TSA Precheck ($85). Priority Pass Select and Centurion Lounge access.</p>
+                            </div>
+                        </div>
+                    </div>
 
-                <h5>Benefits valuation:</h5>
-                <p>$100 airline fee: $<input value=0 type="number" id="monthlyAirlineFeeInput" onkeyup="setValues()"></p>
+                    <div class="col s12 m6">
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="assets/chase-csr.png">
+                                <a class="btn-floating halfway-fab waves-effect waves-light blue"><i id="csrToggle" class="material-icons" onclick="setCSR()">check</i></a>
+                            </div>
+                            <div class="card-content">
+                                <h5>Chase Sapphire Reserve</h5>
+                                <p>3X points for travel and dining at restaurants worldwide. $300 all-inclusive travel credit. Increased redemption through Chase Travel portal. Priority pass select. Temporary fillers and shit to make the cards an even height so it looks good hehehe xD.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="assets/amex-gold.png">
+                                <a class="btn-floating halfway-fab waves-effect waves-light blue"><i id="goldToggle" class="material-icons" onclick="setGold()">check</i></a>
+                            </div>
+                            <div class="card-content">
+                                <h5>AMEX Gold</h5>
+                                <p>4X back on dining in at restaurants worldwide and US supermarkets. 3X back on flights booked directly with airlines or through AMEX. $120 dining credit at select locations. $100 airline fee credit.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12 m6">
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="assets/chase-csp.png">
+                                <a class="btn-floating halfway-fab waves-effect waves-light blue"><i id="cspToggle" class="material-icons" onclick="setCSP()">check</i></a>
+                            </div>
+                            <div class="card-content">
+                                <h5>Chase Sapphire Preferred</h5>
+                                <p>2X points for travel and dining at restaurants worldwide. Increased redemption through Chase Travel portal. Arguably higher point valuation than American Express Membership Rewards points.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="assets/amex-bbp.png">
+                                <a class="btn-floating halfway-fab waves-effect waves-light blue"><i id="bbpToggle" class="material-icons" onclick="setBBP()">check</i></a>
+                            </div>
+                            <div class="card-content">
+                                <h5>AMEX Blue Business Plus</h5>
+                                <p>Business card. 2X back on every dollar spent up to $50,000. 1X back on every dollar thereafter. </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12 m6">
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="assets/chase-cfu.png">
+                                <a class="btn-floating halfway-fab waves-effect waves-light blue"><i id="cfuToggle" class="material-icons" onclick="setCFU()">check</i></a>
+                            </div>
+                            <div class="card-content">
+                                <h5>Chase Freedom Unlimited</h5>
+                                <p>1.5X back on every dollar, unlimited. 3X back on every dollar as a welcome bonus for one year.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col s6">
+                <h3>Spend categories</h3>
+                <h5>Monthly spend:</h5>
+               <!--  
+                <p><i class="material-icons">fastfood</i> Restaurants worldwide: $<input value=400 type="number" id="monthlyRestaurantInput" onkeyup="setValues()"></p>
+                <p><i class="material-icons">local_grocery_store</i> US Supermarkets: $<input value=400 type="number" id="monthlyGroceryInput" onkeyup="setValues()"></p>
+                <p><i class="material-icons">flight_takeoff</i> Flights: $<input value=0 type="number" id="monthlyFlightInput" onkeyup="setValues()"></p>
+                <p><i class="material-icons">credit_card</i> All Other Purchases: $<input value=0 type="number" id="monthlyMiscInput" onkeyup="setValues()"></p>
+                 -->
+                <div class="row">
+                    <i class="material-icons prefix">fastfood</i>
+                    <div class="input-field inline">
+                        <input value=400 type="number" id="monthlyRestaurantInput" onkeyup="setValues()">
+                        <label for="monthlyRestaurantInput">Restaurants worldwide</label>
+                    </div>
+
+
+
+                    <i class="material-icons prefix">local_grocery_store</i>
+                    <div class="input-field inline">
+                        <input value=400 type="number" id="monthlyGroceryInput" onkeyup="setValues()">
+                        <label for="monthlyGroceryInput">US supermarkets</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <i class="material-icons prefix">flight_takeoff</i>
+                    <div class="input-field inline">
+                        <input value=20 type="number" id="monthlyFlightInput" onkeyup="setValues()">
+                        <label for="monthlyFlightInput">Flights</label>
+                    </div>
+
+
+                    <i class="material-icons prefix">credit_card</i>
+                    <div class="input-field inline">
+                        <input value=1000 type="number" id="monthlyMiscInput" onkeyup="setValues()">
+                        <label for="monthlyMiscInput">Miscellaneous Spend</label>
+                    </div>
+                </div>
+
+                <h5>AMEX benefits valuation:</h5>
+                <p>Airline fee credit: $<input value=0 type="number" id="monthlyAirlineFeeInput" onkeyup="setValues()"></p>
                 <p>$120 dining credit: $<input value=0 type="number" id="monthlyDiningCreditInput" onkeyup="setValues()"></p>
 
                 <h5>Monthly spend summary:</h5>
@@ -112,24 +314,29 @@
                 <p>Total points earned: <span id="monthlyTotalPoints"></span> MR</p>
 
                 <h5>Yearly spend summary:</h5>
-
                 <p>Total spend: $<span id="totalOutput"></span></p>
                 <p>Total benefits: $<span id="totalBenefits"></span></p>
                 <p>Total points earned: <span id="totalPoints"></span> MR</p>
 
                 <h5>Redemption method:</h5>
-                <div>
-                    <input type="radio" id="monthlyCreditsRadio" name="monthlyBenefitsRadioGroup" onclick="setValues()">
-                    <label>Statement credit = 0.6 CPP</label>
-                </div>
-                <div>
-                    <input type="radio" id="monthlyTravelRadio" name="monthlyBenefitsRadioGroup" onclick="setValues()">
-                    <label>Travel = 1 CPP</label>
-                </div>
-                <div>
-                    <input type="radio" id="monthlyTransferRadio" name="monthlyBenefitsRadioGroup" checked onclick="setValues()">
-                    <label>Transfer Partners = 2 CPP</label>
-                </div>
+                    <p>
+                      <label>
+                        <input class="with-gap" id="monthlyCreditsRadio" name="monthlyBenefitsRadioGroup" type="radio" onclick="setValues()"/>
+                        <span>Statement credit = 0.6 CPP</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input class="with-gap" id="monthlyTravelRadio" name="monthlyBenefitsRadioGroup" type="radio" onclick="setValues()"/>
+                        <span>Travel = 1 CPP</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input class="with-gap" id="monthlyTransferRadio" name="monthlyBenefitsRadioGroup" type="radio" onclick="setValues()" checked/>
+                        <span>Transfer Partners = 2 CPP</span>
+                      </label>
+                    </p>
 
                 <h5>Monthly MR Valuation total (+ benefits)</h5>
                 <p>$<span id="monthlyMRValuation"></span></p>
@@ -138,75 +345,60 @@
                 <p>$<span id="yearlyMRValuation"></span></p>
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-            <div class="col-sm">
-                <h5>Chase Trifecta tba:</h5>
-                
-
-            </div>
         </div>
     </div>
 
 
 
 
-
-
-
-<!-- 
-<canvas id="myChart" width="400" height="400"></canvas>
-<script>
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
+    <div class="container">
+        <canvas id="myChart" width="400" height="300"></canvas>
+    </div>
+    <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+      data: {
+        labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+        datasets: [{ 
+            data: [86,114,106,106,107,111,133,221,783,2478],
+            label: "Africa",
+            borderColor: "#3e95cd",
+            fill: false
+          }, { 
+            data: [282,350,411,502,635,809,947,1402,3700,5267],
+            label: "Asia",
+            borderColor: "#8e5ea2",
+            fill: false
+          }, { 
+            data: [168,170,178,190,203,276,408,547,675,734],
+            label: "Europe",
+            borderColor: "#3cba9f",
+            fill: false
+          }, { 
+            data: [40,20,10,16,24,38,74,167,508,784],
+            label: "Latin America",
+            borderColor: "#e8c3b9",
+            fill: false
+          }, { 
+            data: [6,3,2,2,7,26,82,172,312,433],
+            label: "North America",
+            borderColor: "#c45850",
+            fill: false
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'World population per region (in millions)'
         }
-    }
-});
-</script>
+      }
+    });
+    </script>
 
 
- -->
+
 
 
 
