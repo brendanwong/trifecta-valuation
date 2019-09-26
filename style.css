@@ -10,13 +10,13 @@ input::-webkit-inner-spin-button {
 /*adjust radio button color*/
 [type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:before, [type="radio"].with-gap:checked + span:after {
  
-  border: 2px solid #2296F3 !important;
+  border: 2px solid #ff5252  !important;
 }
  
  
  
 [type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after {
  
-  background-color: #2296F3 !important;
+  background-color: #ff5252  !important;
 }
 

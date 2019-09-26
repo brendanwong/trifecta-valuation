@@ -1,10 +1,8 @@
 var bbp = true, gold = true, plat = true, cfu = true, csp = true, csr = true;
 
-
 function setValues(){
-    // obtains, validates, and sets values from and in the document
+    // main driver function, obtains and validates values and sets output in the document
     var monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend;
-    var monthlyAirlineFeeCredit, monthlyDiningCredit;
     var monthlySpendTotal, benefitsTotal, monthlyPointsTotal;
     var monthlyPointsValuation, yearlyPointsValuation;
 
@@ -13,10 +11,6 @@ function setValues(){
     monthlyGrocerySpend = parseFloat(document.getElementById('monthlyGroceryInput').value);
     monthlyFlightSpend = parseFloat(document.getElementById('monthlyFlightInput').value);
     monthlyMiscSpend = parseFloat(document.getElementById('monthlyMiscInput').value);
-
-    // benefits
-    monthlyAirlineFeeCredit = parseFloat(document.getElementById('monthlyAirlineFeeInput').value);
-    monthlyDiningCredit = parseFloat(document.getElementById('monthlyDiningCreditInput').value);
 
     //input validation
     if (isNaN(monthlyRestaurantSpend))
@@ -28,24 +22,18 @@ function setValues(){
     if (isNaN(monthlyMiscSpend))
         monthlyMiscSpend = 0;
 
-    if (isNaN(monthlyAirlineFeeCredit))
-        monthlyAirlineFeeCredit = 0;
-    if (isNaN(monthlyDiningCredit))
-        monthlyDiningCredit = 0;
-
+    // benefits input/validation
+    benefitsTotal = getAmexBenefits();
 
     // calculations
     monthlySpendTotal = monthlyRestaurantSpend + monthlyGrocerySpend + monthlyFlightSpend + monthlyMiscSpend;
-    benefitsTotal = monthlyAirlineFeeCredit + monthlyDiningCredit;
     monthlyPointsTotal = monthlyMRCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend);
-    monthlyPointsValuation = redemptionMultiplier(monthlyPointsTotal);
+    monthlyPointsValuation = redemptionMultiplierMR(monthlyPointsTotal);
 
-    monthlyPointsValuation = monthlyPointsValuation + benefitsTotal;
     yearlyPointsValuation = monthlyPointsValuation * 12 + benefitsTotal;
 
     // set values in document
     document.getElementById('monthlyTotal').innerHTML = Math.round(monthlySpendTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.getElementById('monthlyBenefits').innerHTML = Math.round(benefitsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById('monthlyTotalPoints').innerHTML = Math.round(monthlyPointsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById('monthlyMRValuation').innerHTML = Math.round(monthlyPointsValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
@@ -59,7 +47,35 @@ function setValues(){
     document.getElementById('yearlyMRValuation').innerHTML = Math.round(yearlyPointsValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function redemptionMultiplier(monthlyPointsTotal){
+function getAmexBenefits(){
+    // obtains and validates yearly card benefits
+    var airlineFeeCredit, diningCredit, securityFeeCredit, uberCredit, saksFifthCredit, miscCredit;
+
+    airlineFeeCredit = parseFloat(document.getElementById('monthlyAirlineFeeInput').value);
+    diningCredit = parseFloat(document.getElementById('monthlyDiningCreditInput').value);
+    securityFeeCredit = parseFloat(document.getElementById('securityFeeCreditInput').value);
+    uberCredit = parseFloat(document.getElementById('uberCreditInput').value);
+    saksFifthCredit = parseFloat(document.getElementById('saksFifthInput').value);
+    miscCredit = parseFloat(document.getElementById('amexMiscCreditsInput').value);
+
+    //input validation/check if box is disabled
+    if (isNaN(airlineFeeCredit) || document.getElementById('monthlyAirlineFeeInput').disabled)
+        airlineFeeCredit = 0;
+    if (isNaN(diningCredit) || document.getElementById('monthlyDiningCreditInput').disabled)
+        diningCredit = 0;
+    if (isNaN(securityFeeCredit) || document.getElementById('securityFeeCreditInput').disabled)
+        securityFeeCredit = 0;
+    if (isNaN(uberCredit) || document.getElementById('uberCreditInput').disabled)
+        uberCredit = 0;
+    if (isNaN(saksFifthCredit) || document.getElementById('saksFifthInput').disabled)
+        saksFifthCredit = 0;
+    if (isNaN(miscCredit))
+        miscCredit = 0;
+
+    return airlineFeeCredit + diningCredit + securityFeeCredit + uberCredit + saksFifthCredit + miscCredit;
+}
+
+function redemptionMultiplierMR(monthlyPointsTotal){
     // calculate with redemption method
     if (document.getElementById('monthlyCreditsRadio').checked == true)
         return (monthlyPointsTotal * 0.6)  / 100
@@ -104,54 +120,46 @@ function monthlyMRCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, month
         monthlyMiscSpend * miscMultiplier;
 }
 
-// bbp, gold, plat, cfu, csp, csr;
+// amex activation functions
 function setPlat(){
     if (plat == true){
         plat = false;
-        $("#platToggle").html('<i class="material-icons">add</i>'); 
+        $("#platToggle").html('<i class="material-icons">add</i>');
+        $('#securityFeeCreditInput').prop('disabled', true).addClass('disabled').off( "click" );
+        $('#uberCreditInput').prop('disabled', true).addClass('disabled').off( "click" );
+        $('#saksFifthInput').prop('disabled', true).addClass('disabled').off( "click" );
+        if (!gold)
+            $('#monthlyAirlineFeeInput').prop('disabled', true).addClass('disabled').off( "click" );
         setValues();
     }
     else{
         plat = true;
         $("#platToggle").html('<i class="material-icons">check</i>'); 
+        $('#securityFeeCreditInput').prop('disabled', false).addClass('disabled').off( "click" );
+        $('#uberCreditInput').prop('disabled', false).addClass('disabled').off( "click" );
+        $('#monthlyAirlineFeeInput').prop('disabled', false).addClass('disabled').off( "click" );
+        $('#saksFifthInput').prop('disabled', false).addClass('disabled').off( "click" );
         setValues();
-
     }
 }
-// function setCSR(){
-//     if (csr == true){
-//         csr = false;
-//         $("#csrToggle").html('<i class="material-icons">add</i>'); 
-//     }
-//     else{
-//         csr = true;
-//         $("#csrToggle").html('<i class="material-icons">check</i>');
-//     }
-// }
 function setGold(){
     if (gold == true){
         gold = false;
         $("#goldToggle").html('<i class="material-icons">add</i>'); 
+        if (!plat)
+            $('#monthlyAirlineFeeInput').prop('disabled', true).addClass('disabled').off( "click" );
+        $('#monthlyDiningCreditInput').prop('disabled', true).addClass('disabled').off( "click" );
         setValues();
-
     }
     else{
         gold = true;
         $("#goldToggle").html('<i class="material-icons">check</i>');
+        $('#monthlyAirlineFeeInput').prop('disabled', false).addClass('disabled').off( "click" );
+        $('#monthlyDiningCreditInput').prop('disabled', false).addClass('disabled').off( "click" );
         setValues();
 
     }
 }
-// function setCSP(){
-//     if (csp == true){
-//         csp = false;
-//         $("#cspToggle").html('<i class="material-icons">add</i>'); 
-//     }
-//     else{
-//         csp = true;
-//         $("#cspToggle").html('<i class="material-icons">check</i>');
-//     }
-// }
 function setBBP(){
     if (bbp == true){
         bbp = false;
@@ -166,13 +174,34 @@ function setBBP(){
 
     }
 }
-// function setCFU(){
-//     if (cfu == true){
-//         cfu = false;
-//         $("#cfuToggle").html('<i class="material-icons">add</i>'); 
-//     }
-//     else{
-//         cfu = true;
-//         $("#cfuToggle").html('<i class="material-icons">check</i>');
-//     }
-// }
+//chase activation functions
+function setCSR(){
+    if (csr == true){
+        csr = false;
+        $("#csrToggle").html('<i class="material-icons">add</i>'); 
+    }
+    else{
+        csr = true;
+        $("#csrToggle").html('<i class="material-icons">check</i>');
+    }
+}
+function setCSP(){
+    if (csp == true){
+        csp = false;
+        $("#cspToggle").html('<i class="material-icons">add</i>'); 
+    }
+    else{
+        csp = true;
+        $("#cspToggle").html('<i class="material-icons">check</i>');
+    }
+}
+function setCFU(){
+    if (cfu == true){
+        cfu = false;
+        $("#cfuToggle").html('<i class="material-icons">add</i>'); 
+    }
+    else{
+        cfu = true;
+        $("#cfuToggle").html('<i class="material-icons">check</i>');
+    }
+}
