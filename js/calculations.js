@@ -3,8 +3,9 @@ var bbp = true, gold = true, plat = true, cfu = true, csp = true, csr = true;
 function setValues(){
     // main driver function, obtains and validates values and sets output in the document
     var monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend;
-    var monthlySpendTotal, benefitsTotal, monthlyPointsTotal;
-    var monthlyPointsValuation, yearlyPointsValuation;
+    var monthlySpendTotal, benefitsTotal, monthlyMRTotal;
+    var monthlyMRValuation, yearlyPointsValuation;
+    var yearlySpendTotal, yearlyPointsTotal;
 
     // monthly personal spend
     monthlyRestaurantSpend = parseFloat(document.getElementById('monthlyRestaurantInput').value);
@@ -25,21 +26,28 @@ function setValues(){
     // benefits input/validation
     benefitsTotal = getAmexBenefits();
 
-    // calculations
+    // monthly calculations
     monthlySpendTotal = monthlyRestaurantSpend + monthlyGrocerySpend + monthlyFlightSpend + monthlyMiscSpend;
-    monthlyPointsTotal = monthlyMRCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend);
-    monthlyPointsValuation = redemptionMultiplierMR(monthlyPointsTotal);
 
-    yearlyPointsValuation = monthlyPointsValuation * 12 + benefitsTotal;
+    monthlyMRTotal = monthlyMRCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend);
+    monthlyMRValuation = redemptionMultiplierMR(monthlyMRTotal);
+
+    var monthlyURTotal = monthlyURCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend);
+    var monthlyURValuation = redemptionMultiplierUR(monthlyURTotal);
 
     // set values in document
     document.getElementById('monthlyTotal').innerHTML = Math.round(monthlySpendTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.getElementById('monthlyTotalPoints').innerHTML = Math.round(monthlyPointsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.getElementById('monthlyMRValuation').innerHTML = Math.round(monthlyPointsValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-    // yearly stuff
-    var yearlySpendTotal = monthlySpendTotal * 12;
-    var yearlyPointsTotal = monthlyPointsTotal * 12;
+    document.getElementById('monthlyTotalMR').innerHTML = Math.round(monthlyMRTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    document.getElementById('monthlyTotalUR').innerHTML = Math.round(monthlyURTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    document.getElementById('monthlyMRValuation').innerHTML = Math.round(monthlyMRValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    document.getElementById('monthlyURValuation').innerHTML = Math.round(monthlyURValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // yearly calculation
+    yearlySpendTotal = monthlySpendTotal * 12;
+    yearlyPointsTotal = monthlyMRTotal * 12;
+    yearlyPointsValuation = monthlyMRValuation * 12 + benefitsTotal;
 
     document.getElementById('totalOutput').innerHTML = Math.round(yearlySpendTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById('totalBenefits').innerHTML = Math.round(benefitsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -75,14 +83,75 @@ function getAmexBenefits(){
     return airlineFeeCredit + diningCredit + securityFeeCredit + uberCredit + saksFifthCredit + miscCredit;
 }
 
-function redemptionMultiplierMR(monthlyPointsTotal){
+function redemptionMultiplierUR(monthlyURTotal){
+    if (document.getElementById('monthlyCreditsRadio').checked == true){
+        return monthlyURTotal / 100
+
+    }
+    else if (document.getElementById('monthlyTravelRadio').checked == true){
+        if (csr)
+            return (monthlyURTotal * 1.5) / 100
+        else if (csp)
+            return (monthlyURTotal * 1.25) / 100
+        else
+            return monthlyURTotal / 100
+
+    }
+    else if (document.getElementById('monthlyTransferRadio').checked == true){
+        if (csr || csp)
+            return monthlyURTotal * 2 / 100
+        else{
+            M.toast({html: 'You need to select either the Chase Sapphire Reserve or Chase Sapphire Preferred to redeem using the Chase Travel Portal'})
+            return monthlyURTotal / 100  
+        }
+
+    }
+}
+
+function redemptionMultiplierMR(monthlyMRTotal){
     // calculate with redemption method
     if (document.getElementById('monthlyCreditsRadio').checked == true)
-        return (monthlyPointsTotal * 0.6)  / 100
+        return (monthlyMRTotal * 0.6)  / 100
     else if (document.getElementById('monthlyTravelRadio').checked == true)
-        return monthlyPointsTotal / 100
+        return monthlyMRTotal / 100
     else if (document.getElementById('monthlyTransferRadio').checked == true)
-        return monthlyPointsTotal * 2 / 100
+        return monthlyMRTotal * 2 / 100
+}
+
+function monthlyURCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend){
+    var restaurantMultiplier = 1, travelMultiplier = 1, miscMultiplier = 1;
+
+    monthlyMiscSpend += monthlyGrocerySpend;      
+
+    if (cfu && csp && csr){                 //ttt     
+        travelMultiplier = 3;
+        restaurantMultiplier = 3;
+        miscMultiplier = 1.5;
+    } else if (cfu && csp && !csr){         //ttf
+        travelMultiplier = 2;
+        restaurantMultiplier = 2;
+        miscMultiplier = 1.5;
+    } else if (cfu && !csp && csr){         //tft
+        travelMultiplier = 3;
+        restaurantMultiplier = 3;
+        miscMultiplier = 1.5;
+    } else if (!cfu && csp && csr){         //ftt
+        travelMultiplier = 3;
+        restaurantMultiplier = 3;
+    } else if (cfu && !csp && !csr){        //tff
+        travelMultiplier = 1.5;
+        restaurantMultiplier = 1.5;
+        miscMultiplier = 1.5;
+    } else if (!cfu && csp && !csr){        //ftf
+        travelMultiplier = 2;
+        restaurantMultiplier = 2;
+    } else if (!cfu && !csp && csr){        //fft
+        travelMultiplier = 3;
+        restaurantMultiplier = 3;
+    } else {
+        // M.toast({html: 'Select at least one card from each trifecta for proper valuation.'})  
+    }
+    return monthlyRestaurantSpend * restaurantMultiplier + monthlyFlightSpend * travelMultiplier + monthlyMiscSpend * miscMultiplier
 }
 
 function monthlyMRCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend){
@@ -179,29 +248,35 @@ function setCSR(){
     if (csr == true){
         csr = false;
         $("#csrToggle").html('<i class="material-icons">add</i>'); 
+        setValues();
     }
     else{
         csr = true;
         $("#csrToggle").html('<i class="material-icons">check</i>');
+        setValues();
     }
 }
 function setCSP(){
     if (csp == true){
         csp = false;
         $("#cspToggle").html('<i class="material-icons">add</i>'); 
+        setValues();
     }
     else{
         csp = true;
         $("#cspToggle").html('<i class="material-icons">check</i>');
+        setValues();
     }
 }
 function setCFU(){
     if (cfu == true){
         cfu = false;
         $("#cfuToggle").html('<i class="material-icons">add</i>'); 
+        setValues();
     }
     else{
         cfu = true;
         $("#cfuToggle").html('<i class="material-icons">check</i>');
+        setValues();
     }
 }

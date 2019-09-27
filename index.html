@@ -53,7 +53,7 @@
                             </div>
                             <div class="card-content">
                                 <h5>AMEX Platinum</h5>
-                                <p>5X points for flights booked with airlines or through AMEX. 5X points for hotels booked on amextravel.com. $200 airline fee credit. Fee credit for Global Entry ($100) or TSA Precheck ($85). $100 Saks Fifth Avenue credit. $200 Uber credit. Priority Pass Select and Centurion Lounge access.</p>
+                                <p>$550 annual fee. 5X points for flights booked with airlines or through AMEX. 5X points for hotels booked on amextravel.com. $200 airline fee credit. Fee credit for Global Entry ($100) or TSA Precheck ($85). $100 Saks Fifth Avenue credit. $200 Uber credit. Priority Pass Select and Centurion Lounge access.</p>
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                             </div>
                             <div class="card-content">
                                 <h5>Chase Sapphire Reserve</h5>
-                                <p>3X points for travel and dining at restaurants worldwide. $300 all-inclusive travel credit. Increased redemption through Chase Travel portal (1.5 cents per Ultimate Reward Point for travel). Priority pass select. Temporary fillers and shit to make the cards an even height so it looks good hehehe xD.</p>
+                                <p>$450 annual fee. 3X points for travel and dining at restaurants worldwide. $300 all-inclusive travel credit. Increased travel redemption through Chase (1.5 cents per Ultimate Reward point for travel). Priority pass select access.</p>
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                             </div>
                             <div class="card-content">
                                 <h5>AMEX Gold</h5>
-                                <p>4X back on dining in at restaurants worldwide and US supermarkets. 3X back on flights booked directly with airlines or through AMEX. $120 dining credit at select locations. $100 airline fee credit.</p>
+                                <p>$250 annual fee. 4X on dining at restaurants worldwide and US supermarkets. 3X on flights booked directly with airlines or through AMEX. $120 dining credit at select locations. $100 airline fee credit.</p>
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                             </div>
                             <div class="card-content">
                                 <h5>Chase Sapphire Preferred</h5>
-                                <p>2X points for travel and dining at restaurants worldwide. Increased redemption through Chase Travel portal. Arguably higher point valuation than American Express Membership Rewards points (1.25 cents per Ultimate Reward Point for travel).</p>
+                                <p>$95 annual fee. 2X points for travel and dining at restaurants worldwide. Increased travel redemption through Chase (1.25 cents per Ultimate Reward point for travel).</p>
                             </div>
                         </div>
                     </div>
@@ -160,7 +160,7 @@
                             </div>
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">credit_card</i>
-                                <input value=1000 id="monthlyMiscInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                <input id="monthlyMiscInput" type="number" onClick="this.select();" onkeyup="setValues()">
                                 <label for="monthlyMiscInput">Non-category spend</label>
                             </div>
                         </div>
@@ -238,7 +238,8 @@
 
                 <h5>Monthly spend summary:</h5>
                 <p>Total spend: $<span id="monthlyTotal"></span></p>
-                <p>Total points earned: <span id="monthlyTotalPoints"></span> MR</p>
+                <p>Total MR earned: <span id="monthlyTotalMR"></span> MR</p>
+                <p>Total UR earned: <span id="monthlyTotalUR"></span> UR</p>
 
                 <h5>Yearly spend summary:</h5>
                 <p>Total spend: $<span id="totalOutput"></span></p>
@@ -265,8 +266,9 @@
                       </label>
                     </p>
 
-                <h5>Monthly MR Valuation total</h5>
-                <p>$<span id="monthlyMRValuation"></span></p>
+                <h5>Monthly Points Valuation total</h5>
+                <p>MR: $<span id="monthlyMRValuation"></span></p>
+                <p>UR: $<span id="monthlyURValuation"></span></p>
 
                 <h5>Yearly MR Valuation total (+ benefits)</h5>
                 <p>$<span id="yearlyMRValuation"></span></p>
@@ -316,7 +318,7 @@
       options: {
         title: {
           display: true,
-          text: 'World population per region (in millions)'
+          text: 'AMEX MR vs. Chase UR Valuation'
         }
       }
     });
