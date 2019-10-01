@@ -3,9 +3,9 @@ var bbp = true, gold = true, plat = true, cfu = true, csp = true, csr = true;
 function setValues(){
     // main driver function, obtains and validates values and sets output in the document
     var monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend;
-    var monthlySpendTotal, benefitsTotal, monthlyMRTotal;
-    var monthlyMRValuation, yearlyPointsValuation;
-    var yearlySpendTotal, yearlyPointsTotal;
+    var monthlySpendTotal, AMEXBenefitsTotal, ChaseBenefitsTotal, monthlyMRTotal, monthlyURTotal;
+    var monthlyMRValuation, yearlyMRValuation, monthlyURValuation;
+    var yearlySpendTotal, yearlyMRTotal, yearlyURTotal;
 
     // monthly personal spend
     monthlyRestaurantSpend = parseFloat(document.getElementById('monthlyRestaurantInput').value);
@@ -24,16 +24,17 @@ function setValues(){
         monthlyMiscSpend = 0;
 
     // benefits input/validation
-    benefitsTotal = getAmexBenefits();
+    AMEXBenefitsTotal = getAmexBenefits();
+    ChaseBenefitsTotal = getChaseBenefits();
 
-    // monthly calculations
+    // monthly calculations, spend total, point totals and valuations
     monthlySpendTotal = monthlyRestaurantSpend + monthlyGrocerySpend + monthlyFlightSpend + monthlyMiscSpend;
 
     monthlyMRTotal = monthlyMRCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend);
     monthlyMRValuation = redemptionMultiplierMR(monthlyMRTotal);
 
-    var monthlyURTotal = monthlyURCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend);
-    var monthlyURValuation = redemptionMultiplierUR(monthlyURTotal);
+    monthlyURTotal = monthlyURCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend);
+    monthlyURValuation = redemptionMultiplierUR(monthlyURTotal);
 
     // set values in document
     document.getElementById('monthlyTotal').innerHTML = Math.round(monthlySpendTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -46,13 +47,31 @@ function setValues(){
 
     // yearly calculation
     yearlySpendTotal = monthlySpendTotal * 12;
-    yearlyPointsTotal = monthlyMRTotal * 12;
-    yearlyPointsValuation = monthlyMRValuation * 12 + benefitsTotal;
+    yearlyMRTotal = monthlyMRTotal * 12;
+    yearlyURTotal = monthlyURTotal * 12;
+    yearlyMRValuation = monthlyMRValuation * 12 + AMEXBenefitsTotal;
 
     document.getElementById('totalOutput').innerHTML = Math.round(yearlySpendTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.getElementById('totalBenefits').innerHTML = Math.round(benefitsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.getElementById('totalPoints').innerHTML = Math.round(yearlyPointsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.getElementById('yearlyMRValuation').innerHTML = Math.round(yearlyPointsValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    document.getElementById('totalAMEXBenefits').innerHTML = Math.round(AMEXBenefitsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    document.getElementById('totalChaseBenefits').innerHTML = Math.round(ChaseBenefitsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    document.getElementById('totalMR').innerHTML = Math.round(yearlyMRTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    document.getElementById('totalUR').innerHTML = Math.round(yearlyURTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    document.getElementById('yearlyMRValuation').innerHTML = Math.round(yearlyMRValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function getChaseBenefits(){
+    // obtains and validates yearly card benefits
+    var travelCredit, miscCredit;
+
+    travelCredit = parseFloat(document.getElementById('travelCreditInput').value);
+    miscCredit = parseFloat(document.getElementById('chaseMiscCreditsInput').value);
+
+    if (isNaN(travelCredit) || document.getElementById('travelCreditInput').disabled)
+        travelCredit = 0;
+    if (isNaN(miscCredit) || document.getElementById('chaseMiscCreditsInput').disabled)
+        miscCredit = 0;
+
+    return travelCredit + miscCredit;
 }
 
 function getAmexBenefits(){
@@ -86,7 +105,6 @@ function getAmexBenefits(){
 function redemptionMultiplierUR(monthlyURTotal){
     if (document.getElementById('monthlyCreditsRadio').checked == true){
         return monthlyURTotal / 100
-
     }
     else if (document.getElementById('monthlyTravelRadio').checked == true){
         if (csr)
@@ -95,16 +113,14 @@ function redemptionMultiplierUR(monthlyURTotal){
             return (monthlyURTotal * 1.25) / 100
         else
             return monthlyURTotal / 100
-
     }
     else if (document.getElementById('monthlyTransferRadio').checked == true){
         if (csr || csp)
             return monthlyURTotal * 2 / 100
         else{
-            M.toast({html: 'You need to select either the Chase Sapphire Reserve or Chase Sapphire Preferred to redeem using the Chase Travel Portal'})
+            M.toast({html: 'The Chase Sapphire Reserve or Chase Sapphire Preferred must be selected to redeem with Chase transfer partners.'})
             return monthlyURTotal / 100  
         }
-
     }
 }
 
@@ -149,7 +165,7 @@ function monthlyURCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, month
         travelMultiplier = 3;
         restaurantMultiplier = 3;
     } else {
-        // M.toast({html: 'Select at least one card from each trifecta for proper valuation.'})  
+        M.toast({html: 'Select at least one card from each trifecta for proper valuation.'})  
     }
     return monthlyRestaurantSpend * restaurantMultiplier + monthlyFlightSpend * travelMultiplier + monthlyMiscSpend * miscMultiplier
 }
@@ -248,11 +264,13 @@ function setCSR(){
     if (csr == true){
         csr = false;
         $("#csrToggle").html('<i class="material-icons">add</i>'); 
+        $('#travelCreditInput').prop('disabled', true).addClass('disabled').off( "click" );
         setValues();
     }
     else{
         csr = true;
         $("#csrToggle").html('<i class="material-icons">check</i>');
+        $('#travelCreditInput').prop('disabled', false).addClass('disabled').off( "click" );
         setValues();
     }
 }
