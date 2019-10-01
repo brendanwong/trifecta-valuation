@@ -50,15 +50,99 @@ function setValues(){
     yearlyMRTotal = monthlyMRTotal * 12;
     yearlyURTotal = monthlyURTotal * 12;
     yearlyMRValuation = monthlyMRValuation * 12 + AMEXBenefitsTotal;
+    var yearlyURValuation = monthlyURValuation * 12 + ChaseBenefitsTotal;
 
+    // set values in document
     document.getElementById('totalOutput').innerHTML = Math.round(yearlySpendTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    
     document.getElementById('totalAMEXBenefits').innerHTML = Math.round(AMEXBenefitsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById('totalChaseBenefits').innerHTML = Math.round(ChaseBenefitsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    
     document.getElementById('totalMR').innerHTML = Math.round(yearlyMRTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById('totalUR').innerHTML = Math.round(yearlyURTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    
     document.getElementById('yearlyMRValuation').innerHTML = Math.round(yearlyMRValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    document.getElementById('yearlyURValuation').innerHTML = Math.round(yearlyURValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+
+    // get annual fees
+    var chaseAF = getChaseAF();
+    var amexAF = getAMEXAF();
+  
+    monthlyMRValuation = Math.round(monthlyMRValuation);
+    monthlyURValuation = Math.round(monthlyURValuation);
+    // create function data
+    var chaseMonthly = new Array(24);
+    var amexMonthly = new Array(24);
+    var mrVal = monthlyMRValuation;
+    var urVal = monthlyURValuation;
+    var months = new Array(24);
+
+    for (i = 0; i < 24; i++){
+        if (i == 12){
+            mrVal -= amexAF;
+            urVal -= chaseAF;
+            mrVal += AMEXBenefitsTotal;
+            urVal += ChaseBenefitsTotal;
+        }
+        amexMonthly.push(mrVal);
+        chaseMonthly.push(urVal);
+        urVal += monthlyURValuation;
+        mrVal += monthlyMRValuation;
+        months.push(i + 1);
+    }
+    // ok i dont really know whats going on here but extra stuff is appended to the beginning of the arrays
+    for (i = 0; i < 24; i++){
+        amexMonthly.shift();
+        chaseMonthly.shift();
+        months.shift();
+    }
+
+
+    // make the graph bro
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+      data: {
+        labels: months,
+        datasets: [{ 
+            data: amexMonthly,
+            label: "American Express",
+            borderColor: "#3e95cd",
+            fill: false
+          }, { 
+            data: chaseMonthly,
+            label: "Chase",
+            borderColor: "#8e5ea2",
+            fill: false
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'AMEX MR vs. Chase UR Valuation'
+        }
+      }
+    });
 }
 
+function getChaseAF(){
+    var annualFee = 0;
+    if (csr)
+        annualFee += 450;
+    if (csp)
+        annualFee += 95;
+    return annualFee;
+}
+function getAMEXAF(){
+    var annualFee = 0;
+    if (plat)
+        annualFee += 550;
+    if (gold)
+        annualFee += 250;
+    return annualFee;
+}
 function getChaseBenefits(){
     // obtains and validates yearly card benefits
     var travelCredit, miscCredit;
@@ -85,6 +169,7 @@ function getAmexBenefits(){
     saksFifthCredit = parseFloat(document.getElementById('saksFifthInput').value);
     miscCredit = parseFloat(document.getElementById('amexMiscCreditsInput').value);
 
+
     //input validation/check if box is disabled
     if (isNaN(airlineFeeCredit) || document.getElementById('monthlyAirlineFeeInput').disabled)
         airlineFeeCredit = 0;
@@ -99,6 +184,8 @@ function getAmexBenefits(){
     if (isNaN(miscCredit))
         miscCredit = 0;
 
+    // spread out over 4 years 
+    securityFeeCredit = securityFeeCredit / 4;
     return airlineFeeCredit + diningCredit + securityFeeCredit + uberCredit + saksFifthCredit + miscCredit;
 }
 
