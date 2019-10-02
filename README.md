@@ -7,4 +7,5 @@ TODO:
   * maybe sliders for varying public offers like 50-100k for plat
   * 3x for first year with freedom unlimited
 * add military waiver
-* figure out how to decrease vertical size of inline input 
+* figure out how to decrease vertical size of inline input
+* ok apparently chase trifecta usually doesnt usually use csp i clearly use amex. change it to the chase freedom with 5% rotating sigh
