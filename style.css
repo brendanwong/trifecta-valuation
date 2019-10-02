@@ -21,6 +21,21 @@ input::-webkit-inner-spin-button {
 }
 
 
+
+/* label focus color */
+ .input-field input:focus + label {
+   color: black !important;
+ }
+ .material-icons.active{
+ 	color: black !important;
+ }
+ /* label underline focus color */
+ .row .input-field input:focus {
+   border-bottom: 1px solid black !important;
+   box-shadow: 0 1px 0 0 black !important
+ }
+
+
 p,h1,h2,h3,h4,h5{
 	color:#353535;
 }

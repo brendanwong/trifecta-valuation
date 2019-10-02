@@ -122,6 +122,22 @@ function setValues(){
         title: {
           display: true,
           text: 'AMEX MR vs. Chase UR Valuation'
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel:{
+                    display: true,
+                    labelString: 'Month'
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Valuation in $'
+                }
+            }]
         }
       }
     });

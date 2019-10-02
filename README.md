@@ -3,10 +3,8 @@ A little side project I've been thinking about to combine my interest in churnin
 
 
 TODO:
-* remove summaries
 * add sign up bonuses
   * maybe sliders for varying public offers like 50-100k for plat
   * 3x for first year with freedom unlimited
 * add military waiver
 * figure out how to decrease vertical size of inline input 
-* turn third button into materialize modal with fixed footer
