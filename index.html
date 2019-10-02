@@ -1,324 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
-
-    <!-- chartjs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>  
-
-    <!-- css -->
-    <link rel="stylesheet" type="text/css" href="style.css"/>
-
-
-    <!-- materialize -->
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-    <!-- custom js -->
-    <script type="text/javascript" src="js/calculations.js"></script>
-
-    <!-- icons -->
-    <link rel="icon" type="image/x-icon"  href="assets/favicon.png">
-
-    <title>AMEX Gold Valuation Calculator</title>
-
-  </head>
-
-  <body onload="setValues()">
-    <div>
-        <h2 class="center-align">AMEX Trifecta vs. Chase Trifecta Valuation</h2>
-    </div>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
 
-  <div class="row">
-    <div class="col s12">
-      <ul class="tabs">
-        <li class="tab col s4"><a href="https://brendanwong.io" target="_blank">About Me</a></li>
-        <li class="tab col s4"><a href="#test2">Card Details</a></li>        
-        <li class="tab col s4"><a href="#modal1">About the Calculator</a></li>
+        <!-- chartjs -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>  
+
+        <!-- css -->
+        <link rel="stylesheet" type="text/css" href="style.css"/>
 
 
-      </ul>
-    </div>
-  </div>
 
 
-        
-    <div class="container">
+           <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+
+
+
+
+        <!-- materialize -->
+        <!-- Compiled CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
+        <!-- Compiled JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
+        <!--Import Google Icon Font-->
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <!-- custom js -->
+        <script type="text/javascript" src="js/calculations.js"></script>
+
+        <!-- icons -->
+        <link rel="icon" type="image/x-icon"  href="assets/favicon.png">
+
+        <title>Trifecta Valuation Calculator</title>
+
+    </head>
+
+
+
+    <body onload="setValues()">
+
+
+        <div id="navbar">
+            <a href="#default" id="logo">AMEX Trifecta vs. Chase Trifecta Valuation</a>
+            <div id="navbar-right">
+                <a id="navlink" class="modal-trigger" href="#modal1">About the Calculator</a>
+                <a id="navlink2" href="#test2">Card Details</a>
+                <a id="navlink3" href="https://brendanwong.io" target="_blank">About Me</a>
+            </div>
+        </div>
+
+        <script>
+            window.onscroll = function() {scrollFunction()};
+
+            function scrollFunction() {
+              if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
+                document.getElementById("navbar").style.padding = "10px 10px";
+                document.getElementById("logo").style.fontSize = "25px";
+                document.getElementById("navlink").style.fontSize = "15px";
+                document.getElementById("navlink2").style.fontSize = "15px";
+                document.getElementById("navlink3").style.fontSize = "15px";
+              } else {
+                document.getElementById("navbar").style.padding = "50px 10px";
+                document.getElementById("logo").style.fontSize = "35px";
+                document.getElementById("navlink").style.fontSize = "18px";
+                document.getElementById("navlink2").style.fontSize = "18px";
+                document.getElementById("navlink3").style.fontSize = "18px";
+              }
+            }
+        </script>
+
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+        <!-- 
+        <div>
+            <h2 class="center-align">AMEX Trifecta vs. Chase Trifecta Valuation</h2>
+        </div>
+
+
+
         <div class="row">
-            <div class="col s6">
-                <h3 class="left-align">Cards</h3>
-                <div class="row">
-                    <div class="col s12 m6">
-                        <div class="card hoverable">
-                            <div class="card-image">
-                                <img src="assets/amex-plat.png">
-                                <a id="plat-color" class="btn-floating halfway-fab waves-effect waves-light red accent-2"><i id="platToggle" class="material-icons" onclick="setPlat()">check</i></a>
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s4"><a class="modal-trigger" href="#modal1">About the Calculator</a></li>
+                    <li class="tab col s4"><a href="#test2">Card Details</a></li>     
+                    <li class="tab col s4"><a href="https://brendanwong.io" target="_blank">About Me</a></li>   
+                </ul>
+            </div>
+        </div>
+ -->
+
+       <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Trifecta Calculator Info</h4>
+                <p>This is a category spend analyzer and visualization comparison of the Chase and American Express Trifectas over time. Sign up bonuses are currently not implemented.</p> 
+                <p>The personal Chase Freedom Unlimited card was chosen in place of the Ink Business Preferred, to compare to the American Express Blue Business Plus for a base level catch-all for non-category spend. If applicable, the annual fees for each card is applied after the first year of calculation. Factors such as benefits valuation, ease of credit use, current transfer partners for either bank, and other confounding variables such as American Express not being as widely accepted should be taken into account.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-light red lighten-1 btn">Close</a>
+            </div>
+        </div>
+
+        <script>
+        $(document).ready(function(){
+           // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+           $('.modal').modal();
+
+         });
+        </script>
+
+
+
+
+
+
+
+            
+        <div class="container">
+            <div class="row">
+                <div class="col s6">
+                    <h3 class="left-align">Cards</h3>
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <div class="card hoverable">
+                                <div class="card-image">
+                                    <img src="assets/amex-plat.png">
+                                    <a id="plat-color" class="btn-floating halfway-fab waves-effect waves-light red lighten-1"><i id="platToggle" class="material-icons" onclick="setPlat()">check</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <h5>AMEX Platinum</h5>
+                                    <p>$550 annual fee. 5X points for flights booked with airlines or through AMEX. 5X points for hotels booked on amextravel.com. $200 airline fee credit. Fee credit for Global Entry ($100) or TSA Precheck ($85). $100 Saks Fifth Avenue credit. $200 Uber credit. Priority Pass Select and Centurion Lounge access.</p>
+                                </div>
                             </div>
-                            <div class="card-content">
-                                <h5>AMEX Platinum</h5>
-                                <p>$550 annual fee. 5X points for flights booked with airlines or through AMEX. 5X points for hotels booked on amextravel.com. $200 airline fee credit. Fee credit for Global Entry ($100) or TSA Precheck ($85). $100 Saks Fifth Avenue credit. $200 Uber credit. Priority Pass Select and Centurion Lounge access.</p>
+                        </div>
+
+                        <div class="col s12 m6">
+                            <div class="card hoverable">
+                                <div class="card-image">
+                                    <img src="assets/chase-csr.png">
+                                    <a class="btn-floating halfway-fab waves-effect waves-light red lighten-1"><i id="csrToggle" class="material-icons" onclick="setCSR()">check</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <h5>Chase Sapphire Reserve</h5>
+                                    <p>$450 annual fee. 3X points for travel and dining at restaurants worldwide. $300 all-inclusive travel credit. Increased travel redemption through Chase (1.5 cents per Ultimate Reward point for travel). Priority pass select access.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col s12 m6">
-                        <div class="card hoverable">
-                            <div class="card-image">
-                                <img src="assets/chase-csr.png">
-                                <a class="btn-floating halfway-fab waves-effect waves-light red accent-2"><i id="csrToggle" class="material-icons" onclick="setCSR()">check</i></a>
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <div class="card hoverable">
+                                <div class="card-image">
+                                    <img src="assets/amex-gold.png">
+                                    <a class="btn-floating halfway-fab waves-effect waves-light red lighten-1"><i id="goldToggle" class="material-icons" onclick="setGold()">check</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <h5>AMEX Gold</h5>
+                                    <p>$250 annual fee. 4X on dining at restaurants worldwide and US supermarkets. 3X on flights booked directly with airlines or through AMEX. $120 dining credit at select locations. $100 airline fee credit.</p>
+                                </div>
                             </div>
-                            <div class="card-content">
-                                <h5>Chase Sapphire Reserve</h5>
-                                <p>$450 annual fee. 3X points for travel and dining at restaurants worldwide. $300 all-inclusive travel credit. Increased travel redemption through Chase (1.5 cents per Ultimate Reward point for travel). Priority pass select access.</p>
+                        </div>
+
+                        <div class="col s12 m6">
+                            <div class="card hoverable">
+                                <div class="card-image">
+                                    <img src="assets/chase-csp.png">
+                                    <a class="btn-floating halfway-fab waves-effect waves-light red lighten-1"><i id="cspToggle" class="material-icons" onclick="setCSP()">check</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <h5>Chase Sapphire Preferred</h5>
+                                    <p>$95 annual fee. 2X points for travel and dining at restaurants worldwide. Increased travel redemption through Chase (1.25 cents per Ultimate Reward point for travel).</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <div class="card hoverable">
+                                <div class="card-image">
+                                    <img src="assets/amex-bbp.png">
+                                    <a class="btn-floating halfway-fab waves-effect waves-light red lighten-1"><i id="bbpToggle" class="material-icons" onclick="setBBP()">check</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <h5>AMEX Blue Business Plus</h5>
+                                    <p>Business card. 2X back on every dollar spent up to $50,000. 1X back on every dollar thereafter. </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m6">
+                            <div class="card hoverable">
+                                <div class="card-image">
+                                    <img src="assets/chase-cfu.png">
+                                    <a class="btn-floating halfway-fab waves-effect waves-light red lighten-1"><i id="cfuToggle" class="material-icons" onclick="setCFU()">check</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <h5>Chase Freedom Unlimited</h5>
+                                    <p>1.5X back on every dollar, unlimited. 3X back on every dollar as a welcome bonus for one year.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="row">
-                    <div class="col s12 m6">
-                        <div class="card hoverable">
-                            <div class="card-image">
-                                <img src="assets/amex-gold.png">
-                                <a class="btn-floating halfway-fab waves-effect waves-light red accent-2"><i id="goldToggle" class="material-icons" onclick="setGold()">check</i></a>
+                <div class="col s6">
+                    <h3>Spend categories</h3>
+                    <h5>Monthly spend:</h5>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">restaurant</i>
+                                    <input value=400 id="monthlyRestaurantInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <label for="monthlyRestaurantInput">Restaurants worldwide</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">local_grocery_store</i>
+                                    <input value=400 id="monthlyGroceryInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <label for="monthlyGroceryInput">US supermarkets</label>
+                                </div>
                             </div>
-                            <div class="card-content">
-                                <h5>AMEX Gold</h5>
-                                <p>$250 annual fee. 4X on dining at restaurants worldwide and US supermarkets. 3X on flights booked directly with airlines or through AMEX. $120 dining credit at select locations. $100 airline fee credit.</p>
-                            </div>
-                        </div>
+                        </form>
                     </div>
 
-                    <div class="col s12 m6">
-                        <div class="card hoverable">
-                            <div class="card-image">
-                                <img src="assets/chase-csp.png">
-                                <a class="btn-floating halfway-fab waves-effect waves-light red accent-2"><i id="cspToggle" class="material-icons" onclick="setCSP()">check</i></a>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">flight_takeoff</i>
+                                    <input value=50 id="monthlyFlightInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <label for="monthlyFlightInput">Flights</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">credit_card</i>
+                                    <input id="monthlyMiscInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <label for="monthlyMiscInput">Non-category spend</label>
+                                </div>
                             </div>
-                            <div class="card-content">
-                                <h5>Chase Sapphire Preferred</h5>
-                                <p>$95 annual fee. 2X points for travel and dining at restaurants worldwide. Increased travel redemption through Chase (1.25 cents per Ultimate Reward point for travel).</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col s12 m6">
-                        <div class="card hoverable">
-                            <div class="card-image">
-                                <img src="assets/amex-bbp.png">
-                                <a class="btn-floating halfway-fab waves-effect waves-light red accent-2"><i id="bbpToggle" class="material-icons" onclick="setBBP()">check</i></a>
-                            </div>
-                            <div class="card-content">
-                                <h5>AMEX Blue Business Plus</h5>
-                                <p>Business card. 2X back on every dollar spent up to $50,000. 1X back on every dollar thereafter. </p>
-                            </div>
-                        </div>
+                        </form>
                     </div>
 
-                    <div class="col s12 m6">
-                        <div class="card hoverable">
-                            <div class="card-image">
-                                <img src="assets/chase-cfu.png">
-                                <a class="btn-floating halfway-fab waves-effect waves-light red accent-2"><i id="cfuToggle" class="material-icons" onclick="setCFU()">check</i></a>
+                    <h5>Yearly AMEX benefits valuation:</h5>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">security</i>
+                                    <input value=85 id="securityFeeCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <label for="securityFeeCreditInput">TSA/Global Entry credit</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">directions_car</i>
+                                    <input value=200 id="uberCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <label for="uberCreditInput">Uber credit</label>
+                                </div>
                             </div>
-                            <div class="card-content">
-                                <h5>Chase Freedom Unlimited</h5>
-                                <p>1.5X back on every dollar, unlimited. 3X back on every dollar as a welcome bonus for one year.</p>
-                            </div>
-                        </div>
+                        </form>
                     </div>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">shopping_basket</i>
+                                    <input value=50 id="saksFifthInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <label for="saksFifthInput">Saks Fifth credit</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">card_travel</i>
+                                    <input value=40 id="monthlyAirlineFeeInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <label for="monthlyAirlineFeeInput">Airline fee credit</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">fastfood</i>
+                                    <input value=85 id="monthlyDiningCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <label for="monthlyDiningCreditInput">Dining credit</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">attach_money</i>
+                                    <input id="amexMiscCreditsInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <label for="amexMiscCreditsInput">Other AMEX benefits</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <h5>Yearly Chase benefits valuation:</h5>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">local_airport</i>
+                                    <input value=300 id="travelCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <label for="travelCreditInput">Travel credit</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">attach_money</i>
+                                    <input id="chaseMiscCreditsInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <label for="chaseMiscCreditsInput">Other Chase benefits</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <h5>Monthly spend summary:</h5>
+                    <p>Total spend: $<span id="monthlyTotal"></span></p>
+                    <p>Total MR earned: <span id="monthlyTotalMR"></span> MR</p>
+                    <p>Total UR earned: <span id="monthlyTotalUR"></span> UR</p>
+
+                    <h5>Yearly spend summary:</h5>
+                    <p>Total spend: $<span id="totalOutput"></span></p>
+                    <p>Total AMEX benefits: $<span id="totalAMEXBenefits"></span></p>
+                    <p>Total Chase benefits: $<span id="totalChaseBenefits"></span></p>
+
+                    <p>Total MR earned: <span id="totalMR"></span> MR</p>
+                    <p>Total UR earned: <span id="totalUR"></span> UR</p>
+
+
+                    <h5>Redemption method:</h5>
+                        <p>
+                          <label>
+                            <input class="with-gap" id="monthlyCreditsRadio" name="monthlyBenefitsRadioGroup" type="radio" onclick="setValues()"/>
+                            <span>Statement credit = 0.6 C/MR and 1 C/UR</span>
+                          </label>
+                        </p>
+                        <p>
+                          <label>
+                            <input class="with-gap" id="monthlyTravelRadio" name="monthlyBenefitsRadioGroup" type="radio" onclick="setValues()" checked/>
+                            <span>Travel = 1 C/MR, 1.25 C/MR (CSP), 1.5 C/MR (CSR)</span>
+                          </label>
+                        </p>
+                        <p>
+                          <label>
+                            <input class="with-gap" id="monthlyTransferRadio" name="monthlyBenefitsRadioGroup" type="radio" onclick="setValues()"/>
+                            <span>Transfer Partners = 2 C/MR and 2 C/UR</span>
+                          </label>
+                        </p>
+    <!-- 
+                    <h5>Monthly Points Valuation total</h5>
+                    <p>MR: $<span id="monthlyMRValuation"></span></p>
+                    <p>UR: $<span id="monthlyURValuation"></span></p>
+
+                    <h5>Yearly Valuation total (+ benefits)</h5>
+                    <p>MR: $<span id="yearlyMRValuation"></span></p>
+                    <p>UR: $<span id="yearlyURValuation"></span></p>
+                     -->
                 </div>
 
             </div>
-
-            <div class="col s6">
-                <h3>Spend categories</h3>
-                <h5>Monthly spend:</h5>
-                <div class="row">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">restaurant</i>
-                                <input value=400 id="monthlyRestaurantInput" type="number" onClick="this.select();" onkeyup="setValues()">
-                                <label for="monthlyRestaurantInput">Restaurants worldwide</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">local_grocery_store</i>
-                                <input value=400 id="monthlyGroceryInput" type="number" onClick="this.select();" onkeyup="setValues()">
-                                <label for="monthlyGroceryInput">US supermarkets</label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="row">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">flight_takeoff</i>
-                                <input value=600 id="monthlyFlightInput" type="number" onClick="this.select();" onkeyup="setValues()">
-                                <label for="monthlyFlightInput">Flights</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">credit_card</i>
-                                <input id="monthlyMiscInput" type="number" onClick="this.select();" onkeyup="setValues()">
-                                <label for="monthlyMiscInput">Non-category spend</label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <h5>Yearly AMEX benefits valuation:</h5>
-                <div class="row">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">security</i>
-                                <input value=85 id="securityFeeCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
-                                <label for="securityFeeCreditInput">TSA/Global Entry credit</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">directions_car</i>
-                                <input value=100 id="uberCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
-                                <label for="uberCreditInput">Uber credit</label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="row">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">shopping_basket</i>
-                                <input value=50 id="saksFifthInput" type="number" onClick="this.select();" onkeyup="setValues()">
-                                <label for="saksFifthInput">Saks Fifth credit</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">card_travel</i>
-                                <input value=40 id="monthlyAirlineFeeInput" type="number" onClick="this.select();" onkeyup="setValues()">
-                                <label for="monthlyAirlineFeeInput">Airline fee credit</label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="row">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">fastfood</i>
-                                <input value=85 id="monthlyDiningCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
-                                <label for="monthlyDiningCreditInput">Dining credit</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">attach_money</i>
-                                <input id="amexMiscCreditsInput" type="number" onClick="this.select();" onkeyup="setValues()">
-                                <label for="amexMiscCreditsInput">Other AMEX benefits</label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <h5>Yearly Chase benefits valuation:</h5>
-                <div class="row">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">local_airport</i>
-                                <input value=300 id="travelCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
-                                <label for="travelCreditInput">Travel credit</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">attach_money</i>
-                                <input id="chaseMiscCreditsInput" type="number" onClick="this.select();" onkeyup="setValues()">
-                                <label for="chaseMiscCreditsInput">Other Chase benefits</label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <h5>Monthly spend summary:</h5>
-                <p>Total spend: $<span id="monthlyTotal"></span></p>
-                <p>Total MR earned: <span id="monthlyTotalMR"></span> MR</p>
-                <p>Total UR earned: <span id="monthlyTotalUR"></span> UR</p>
-
-                <h5>Yearly spend summary:</h5>
-                <p>Total spend: $<span id="totalOutput"></span></p>
-                <p>Total AMEX benefits: $<span id="totalAMEXBenefits"></span></p>
-                <p>Total Chase benefits: $<span id="totalChaseBenefits"></span></p>
-
-                <p>Total MR earned: <span id="totalMR"></span> MR</p>
-                <p>Total UR earned: <span id="totalUR"></span> UR</p>
+        </div>
 
 
-                <h5>Redemption method:</h5>
-                    <p>
-                      <label>
-                        <input class="with-gap" id="monthlyCreditsRadio" name="monthlyBenefitsRadioGroup" type="radio" onclick="setValues()"/>
-                        <span>Statement credit = 0.6 C/MR and 1 C/UR</span>
-                      </label>
-                    </p>
-                    <p>
-                      <label>
-                        <input class="with-gap" id="monthlyTravelRadio" name="monthlyBenefitsRadioGroup" type="radio" onclick="setValues()" checked/>
-                        <span>Travel = 1 C/MR, 1.25 C/MR (CSP), 1.5 C/MR (CSR)</span>
-                      </label>
-                    </p>
-                    <p>
-                      <label>
-                        <input class="with-gap" id="monthlyTransferRadio" name="monthlyBenefitsRadioGroup" type="radio" onclick="setValues()"/>
-                        <span>Transfer Partners = 2 C/MR and 2 C/UR</span>
-                      </label>
-                    </p>
+        <div id="charticles" class="container">
+            <canvas id="myChart" width="400" height="300"></canvas>
+        </div>
 
-                <h5>Monthly Points Valuation total</h5>
-                <p>MR: $<span id="monthlyMRValuation"></span></p>
-                <p>UR: $<span id="monthlyURValuation"></span></p>
 
-                <h5>Yearly Valuation total (+ benefits)</h5>
-                <p>MR: $<span id="yearlyMRValuation"></span></p>
-                <p>UR: $<span id="yearlyURValuation"></span></p>
-            </div>
+
+
+
+
+
+
 
         </div>
-    </div>
 
 
-    <div id="charticles" class="container">
-        <canvas id="myChart" width="400" height="300"></canvas>
-    </div>
-
-
-
-
-
-
-
-
-
-    </div>
-
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+     
+    </body>
 </html>

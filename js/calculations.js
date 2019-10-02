@@ -1,14 +1,5 @@
 var bbp = true, gold = true, plat = true, cfu = true, csp = true, csr = true;
-// function displayCalcInfo(){
 
-//     // M.toast({html: 'This is a calculator and visualization comparison of the Chase and American Express Trifectas which utilizes user spend input. If applicable, the annual fees for each card is applied after the first year of calculation. The personal Chase Freedom Unlimited card was chosen in place of the Ink Business Preferred, to compare to the American Express Blue Business Plus for a base level catch-all for non-category spend. With higher spend and/or redemption via transfer partners, it may seem that American Express will net you more return but factors such as benefits valuation/ease of credit use, current transfer partners for either bank, and other confounding variables such as American Express not being as widely accepted should be taken into account.'});
-//      $(document).ready(function(){
-//         $('#test3').modal();
-//       });
-
-
-
-// }
 function setValues(){
     // main driver function, obtains and validates values and sets output in the document
     var monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend;
@@ -51,8 +42,8 @@ function setValues(){
     document.getElementById('monthlyTotalMR').innerHTML = Math.round(monthlyMRTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById('monthlyTotalUR').innerHTML = Math.round(monthlyURTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-    document.getElementById('monthlyMRValuation').innerHTML = Math.round(monthlyMRValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.getElementById('monthlyURValuation').innerHTML = Math.round(monthlyURValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // document.getElementById('monthlyMRValuation').innerHTML = Math.round(monthlyMRValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // document.getElementById('monthlyURValuation').innerHTML = Math.round(monthlyURValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
     // yearly calculation
     yearlySpendTotal = monthlySpendTotal * 12;
@@ -70,8 +61,8 @@ function setValues(){
     document.getElementById('totalMR').innerHTML = Math.round(yearlyMRTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById('totalUR').innerHTML = Math.round(yearlyURTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     
-    document.getElementById('yearlyMRValuation').innerHTML = Math.round(yearlyMRValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.getElementById('yearlyURValuation').innerHTML = Math.round(yearlyURValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // document.getElementById('yearlyMRValuation').innerHTML = Math.round(yearlyMRValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // document.getElementById('yearlyURValuation').innerHTML = Math.round(yearlyURValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 
     // get annual fees
