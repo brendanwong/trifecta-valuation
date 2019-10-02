@@ -45,7 +45,7 @@ p,h1,h2,h3,h4,h5{
   overflow: hidden;
   background-color: #ef5350;
   padding: 50px 10px; /* Large padding which will shrink on scroll (using JS) */
-  transition: 0.4s; /* Adds a transition effect when the padding is decreased */
+  transition: 0.3s; /* Adds a transition effect when the padding is decreased */
   position: fixed; /* Sticky/fixed navbar */
   width: 100%;
   top: 0; /* At the top */
@@ -62,7 +62,7 @@ p,h1,h2,h3,h4,h5{
   font-size: 18px;
   line-height: 25px;
   border-radius: 4px;
-  transition: 0.4s;
+  transition: 0.3s;
 }
 
 /* Style the logo */

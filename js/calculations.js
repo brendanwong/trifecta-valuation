@@ -103,43 +103,54 @@ function setValues(){
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
-      data: {
-        labels: months,
-        datasets: [{ 
-            data: amexMonthly,
-            label: "American Express",
-            borderColor: "#3e95cd",
-            fill: false
-          }, { 
-            data: chaseMonthly,
-            label: "Chase",
-            borderColor: "#8e5ea2",
-            fill: false
-          }
-        ]
-      },
-      options: {
-        title: {
-          display: true,
-          text: 'AMEX MR vs. Chase UR Valuation'
-        },
-        scales: {
-            xAxes: [{
-                display: true,
-                scaleLabel:{
+        data: {
+            labels: months,
+            datasets: [{ 
+                data: amexMonthly,
+                label: "American Express",
+                borderColor: "#3e95cd",
+                fill: false
+              }, { 
+                data: chaseMonthly,
+                label: "Chase",
+                borderColor: "#8e5ea2",
+                fill: false
+              }
+            ]
+          },
+        options: {
+            legend: {fillStyle: Color},
+            responsive: true,
+            title: {
+              display: true,
+              text: 'AMEX MR vs. Chase UR Valuation'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
                     display: true,
-                    labelString: 'Month'
-                }
-            }],
-            yAxes: [{
-                display: true,
-                scaleLabel: {
+                    scaleLabel:{
+                        display: true,
+                        labelString: 'Month'
+                    }
+                }],
+                yAxes: [{
                     display: true,
-                    labelString: 'Valuation in $'
-                }
-            }]
-        }
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Valuation in $'
+                    }
+                }]
+            }
       }
+
     });
 }
 
