@@ -36,9 +36,18 @@ input::-webkit-inner-spin-button {
  }
 
 
-p,h1,h2,h3,h4,h5{
+h1,h2,h3,h4,h5{
 	color:#353535;
 }
+p{
+	color:#979EA4;
+}
+a,p,h1,h2,h3,h4,h5{
+	font-family: "Roboto", sans-serif;
+	    font-weight: 300;
+
+}
+
 
 /* Create a sticky/fixed navbar */
 #navbar {
@@ -69,7 +78,7 @@ p,h1,h2,h3,h4,h5{
 #navbar #logo {
   font-size: 35px;
   /*font-weight: bold;*/
-  transition: 0.4s;
+  transition: 0.3s;
 }
 
 /* Links on mouse-over */
