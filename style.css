@@ -74,7 +74,7 @@ p,h1,h2,h3,h4,h5{
 
 /* Links on mouse-over */
 #navbar a:hover {
-  background-color: #d32f2f;
+  /*background-color: #d32f2f;*/
   /*color: black;*/
 }
 

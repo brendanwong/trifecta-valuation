@@ -1,4 +1,5 @@
 var bbp = true, gold = true, plat = true, cfu = true, csp = true, csr = true;
+var lineChart;
 
 function setValues(){
     // main driver function, obtains and validates values and sets output in the document
@@ -6,6 +7,7 @@ function setValues(){
     var monthlySpendTotal, AMEXBenefitsTotal, ChaseBenefitsTotal, monthlyMRTotal, monthlyURTotal;
     var monthlyMRValuation, yearlyMRValuation, monthlyURValuation;
     var yearlySpendTotal, yearlyMRTotal, yearlyURTotal;
+    var ctx;
 
     // monthly personal spend
     monthlyRestaurantSpend = parseFloat(document.getElementById('monthlyRestaurantInput').value);
@@ -63,14 +65,23 @@ function setValues(){
     
     // document.getElementById('yearlyMRValuation').innerHTML = Math.round(yearlyMRValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     // document.getElementById('yearlyURValuation').innerHTML = Math.round(yearlyURValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-
-    // get annual fees
     var chaseAF = getChaseAF();
     var amexAF = getAMEXAF();
-  
+
+
+    document.getElementById('totalAMEXFees').innerHTML = amexAF.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    document.getElementById('totalChaseFees').innerHTML = chaseAF.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+
     monthlyMRValuation = Math.round(monthlyMRValuation);
     monthlyURValuation = Math.round(monthlyURValuation);
+
+    createChart(chaseAF, amexAF, monthlyMRValuation, monthlyURValuation, AMEXBenefitsTotal, ChaseBenefitsTotal);
+}
+
+function createChart(chaseAF, amexAF, monthlyMRValuation, monthlyURValuation, AMEXBenefitsTotal, ChaseBenefitsTotal){
+    // get annual fees
+  
     // create function data
     var chaseMonthly = new Array(24);
     var amexMonthly = new Array(24);
@@ -98,10 +109,13 @@ function setValues(){
         months.shift();
     }
 
+    // chartjs needs cleared references of any old chart
+    if(lineChart)
+        lineChart.destroy();
 
     // make the graph bro
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
+    ctx = document.getElementById('myChart').getContext('2d');
+    lineChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: months,
@@ -123,7 +137,7 @@ function setValues(){
             responsive: true,
             title: {
               display: true,
-              text: 'AMEX MR vs. Chase UR Valuation'
+              text: 'AMEX MR vs. Chase UR Valuation over 24 months'
             },
             tooltips: {
                 mode: 'index',
@@ -152,6 +166,7 @@ function setValues(){
       }
 
     });
+
 }
 
 function getChaseAF(){
@@ -212,7 +227,7 @@ function getAmexBenefits(){
         miscCredit = 0;
 
     // spread out over 4 years 
-    securityFeeCredit = securityFeeCredit / 4;
+    // securityFeeCredit = securityFeeCredit / 4;
     return airlineFeeCredit + diningCredit + securityFeeCredit + uberCredit + saksFifthCredit + miscCredit;
 }
 
@@ -279,7 +294,7 @@ function monthlyURCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, month
         travelMultiplier = 3;
         restaurantMultiplier = 3;
     } else {
-        M.toast({html: 'Select at least one card from each trifecta for proper valuation.'})  
+        M.toast({html: 'Select at least one card from Chase for proper valuation.'})  
     }
     return monthlyRestaurantSpend * restaurantMultiplier + monthlyFlightSpend * travelMultiplier + monthlyMiscSpend * miscMultiplier
 }
@@ -310,7 +325,7 @@ function monthlyMRCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, month
     } else if (!bbp && !gold && plat){                          //fft
         flightMultiplier = 5;
     } else {                                                    //fff
-        M.toast({html: 'Select at least one card from each trifecta for proper valuation.'})
+        M.toast({html: 'Select at least one card from American Express for proper valuation.'})
     }
 
     return monthlyRestaurantSpend * restaurantMultiplier + 

@@ -49,10 +49,10 @@
     <body onload="setValues()">
 
         <div id="navbar">
-            <a href="#default" id="logo">AMEX Trifecta vs. Chase Trifecta Valuation</a>
+            <a href="#" id="logo">AMEX Trifecta vs. Chase Trifecta Valuation</a>
             <div id="navbar-right">
                 <a id="navlink" class="modal-trigger" href="#modal1">About the Calculator</a>
-                <a id="navlink2" href="#test2">Card Details</a>
+                <a id="navlink2" class="modal-trigger" href="#modal2">Card Details</a>
                 <a id="navlink3" href="https://brendanwong.io" target="_blank">About Me</a>
             </div>
         </div>
@@ -83,6 +83,7 @@
         <br>
         <br>
         <br>
+        <br>
 
         <!-- 
         <div>
@@ -106,8 +107,18 @@
             <div class="modal-content">
                 <h4>Trifecta Calculator Info</h4>
                 <p>This is a category spend analyzer and visualization comparison of the Chase and American Express Trifectas over time. Sign up bonuses will be implemented in the near future.</p> 
-                <p>The Chase Freedom Unlimited card was chosen in place of the Ink Business Preferred to compare to the American Express Blue Business Plus for a base level catch-all for non-category spend. If applicable, the annual fees for each card is applied after the first year of calculation. Factors such as benefits valuation, ease of credit use, current transfer partners for either bank, and other confounding variables such as American Express not being as widely accepted should be taken into account.</p>
-                <p>The source code can be found <a href="https://github.com/brendanwong/trifecta-valuation">here</a>.</p>
+                <p>The Chase Freedom Unlimited card was chosen in place of the Ink Business Preferred to compare to the American Express Blue Business Plus for a base level catch-all for non-category spend. If applicable, the annual fees for each card is applied after the first year of calculation. Factors such as benefits valuation, ease of credit use, current transfer partners for either bank, and other confounding variables such as American Express not being as widely accepted should be taken into account. The valuation chart at the bottom is the amount of points earned multiplied by the redemption mutiplier, with benefits added and annual fee subtracted. Positive values on the graph mean a net benefit for the user.</p>
+                <p>The source code and calculation logic can be found <a href="https://github.com/brendanwong/trifecta-valuation">here</a>.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-light red lighten-1 btn">Close</a>
+            </div>
+        </div>
+
+        <div id="modal2" class="modal">
+            <div class="modal-content">
+                <h4>Under construction</h4>
+                <p>Stay tuned :^)</p>
             </div>
             <div class="modal-footer">
                 <a href="#!" class=" modal-action modal-close waves-effect waves-light red lighten-1 btn">Close</a>
@@ -213,7 +224,7 @@
                 </div>
 
                 <div class="col s6">
-                    <h3>Spend categories</h3>
+                    <h3>Spend Categories</h3>
                     <h5>Monthly spend:</h5>
                     <div class="row">
                         <form class="col s12">
@@ -260,7 +271,7 @@
                                 </div>
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">directions_car</i>
-                                    <input value=200 id="uberCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <input value=150 id="uberCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
                                     <label for="uberCreditInput">Uber credit</label>
                                 </div>
                             </div>
@@ -325,6 +336,9 @@
 
                     <h5>Yearly spend summary:</h5>
                     <p>Total spend: $<span id="totalOutput"></span></p>
+                    <p>Total AMEX Fees: $<span id="totalAMEXFees"></span></p>
+                    <p>Total Chase Fees: $<span id="totalChaseFees"></span></p>
+
                     <p>Total AMEX benefits: $<span id="totalAMEXBenefits"></span></p>
                     <p>Total Chase benefits: $<span id="totalChaseBenefits"></span></p>
 
@@ -366,7 +380,7 @@
         </div>
 
         <div id="charticles" class="container">
-            <canvas id="myChart" width="400" height="280"></canvas>
+            <canvas id="myChart" width="400" height="250"></canvas>
         </div>
 
         </div>
