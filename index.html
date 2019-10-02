@@ -111,7 +111,7 @@
             <div class="modal-content">
                 <h4>Trifecta Calculator Info</h4>
                 <p>This is a category spend analyzer and visualization comparison of the Chase and American Express Trifectas over time. Sign up bonuses will be implemented in the near future.</p> 
-                <p>The Chase Freedom Unlimited card was chosen in place of the Ink Business Preferred to compare to the American Express Blue Business Plus for a base level catch-all for non-category spend. If applicable, the annual fees for each card is applied after the first year of calculation. <b> Factors such as benefits valuation, ease of credit use, current transfer partners for either bank, and other confounding variables such as American Express not being as widely accepted should be taken into account.</b> The valuation chart at the bottom is the amount of points earned multiplied by the redemption mutiplier, with benefits added and annual fee subtracted. Positive values on the graph mean a net benefit for the user.</p>
+                <p>If applicable, the annual fees for each card is applied after the first year of calculation. <b> Factors such as benefits valuation, ease of credit use, current transfer partners for either bank, and other confounding variables such as American Express not being as widely accepted should be taken into account.</b> The valuation chart at the bottom is the amount of points earned multiplied by the redemption mutiplier, with benefits added and annual fee subtracted.</p>
                 <p>The source code and calculation logic can be found <a href="https://github.com/brendanwong/trifecta-valuation">here</a>.</p>
             </div>
             <div class="modal-footer">
@@ -186,12 +186,12 @@
                         <div class="col s12 m6">
                             <div class="card hoverable">
                                 <div class="card-image">
-                                    <img src="assets/chase-csp.png">
-                                    <a class="btn-floating halfway-fab waves-effect waves-light red lighten-1"><i id="cspToggle" class="material-icons" onclick="setCSP()">check</i></a>
+                                    <img src="assets/chase-cf.png">
+                                    <a class="btn-floating halfway-fab waves-effect waves-light red lighten-1"><i id="cfToggle" class="material-icons" onclick="setCF()">check</i></a>
                                 </div>
                                 <div class="card-content">
-                                    <h5>Chase Sapphire Preferred</h5>
-                                    <p>$95 annual fee. 2X points for travel and dining at restaurants worldwide. Increased travel redemption through Chase (1.25 cents per UR point for travel).</p>
+                                    <h5>Chase Freedom</h5>
+                                    <p>5X points for rotating categories each quarter of the year. Common categories include gas stations, grocery stores, and wholesale clubs. Refer to the Chase Freedom calendar for current bonus categories.</p>
                                 </div>
                             </div>
                         </div>
@@ -256,8 +256,21 @@
                                     <label for="monthlyFlightInput">Flights</label>
                                 </div>
                                 <div class="input-field col s6">
+                                    <i class="material-icons prefix">account_balance</i>
+                                    <input value=100 id="freedomSpend" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <label for="freedomSpend">Freedom Category spend</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                
+                                <div class="input-field col s6">
                                     <i class="material-icons prefix">credit_card</i>
-                                    <input value=500 id="monthlyMiscInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <input value=1000 id="monthlyMiscInput" type="number" onClick="this.select();" onkeyup="setValues()">
                                     <label for="monthlyMiscInput">Non-category spend</label>
                                 </div>
                             </div>
@@ -275,7 +288,7 @@
                                 </div>
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">directions_car</i>
-                                    <input value=150 id="uberCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <input value=100 id="uberCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
                                     <label for="uberCreditInput">Uber credit</label>
                                 </div>
                             </div>
@@ -332,12 +345,12 @@
                             </div>
                         </form>
                     </div>
-
+<!-- 
                     <h5>Monthly spend summary:</h5>
                     <p>Total spend: $<span id="monthlyTotal"></span></p>
                     <p>Total MR earned: <span id="monthlyTotalMR"></span> MR</p>
                     <p>Total UR earned: <span id="monthlyTotalUR"></span> UR</p>
-
+ -->
                     <h5>Yearly spend summary:</h5>
                     <p>Total spend: $<span id="totalOutput"></span></p>
                     <p>Total AMEX fees: $<span id="totalAMEXFees"></span></p>
@@ -360,7 +373,7 @@
                         <p>
                           <label>
                             <input class="with-gap" id="monthlyTravelRadio" name="monthlyBenefitsRadioGroup" type="radio" onclick="setValues()" checked/>
-                            <span>Travel = 1 C/MR, 1.25 C/MR (CSP), 1.5 C/MR (CSR)</span>
+                            <span>Travel = 1 C/MR and 1.5 C/UR</span>
                           </label>
                         </p>
                         <p>

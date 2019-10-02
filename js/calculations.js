@@ -1,9 +1,9 @@
-var bbp = true, gold = true, plat = true, cfu = true, csp = true, csr = true;
+var bbp = true, gold = true, plat = true, cfu = true, cf = true, csr = true;
 var lineChart;
 
 function setValues(){
     // main driver function, obtains and validates values and sets output in the document
-    var monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend;
+    var monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyCFSpend, monthlyMiscSpend;
     var monthlySpendTotal, AMEXBenefitsTotal, ChaseBenefitsTotal, monthlyMRTotal, monthlyURTotal;
     var monthlyMRValuation, yearlyMRValuation, monthlyURValuation;
     var yearlySpendTotal, yearlyMRTotal, yearlyURTotal;
@@ -13,6 +13,7 @@ function setValues(){
     monthlyRestaurantSpend = parseFloat(document.getElementById('monthlyRestaurantInput').value);
     monthlyGrocerySpend = parseFloat(document.getElementById('monthlyGroceryInput').value);
     monthlyFlightSpend = parseFloat(document.getElementById('monthlyFlightInput').value);
+    monthlyCFSpend = parseFloat(document.getElementById('freedomSpend').value);
     monthlyMiscSpend = parseFloat(document.getElementById('monthlyMiscInput').value);
 
     //input validation
@@ -32,17 +33,17 @@ function setValues(){
     // monthly calculations, spend total, point totals and valuations
     monthlySpendTotal = monthlyRestaurantSpend + monthlyGrocerySpend + monthlyFlightSpend + monthlyMiscSpend;
 
-    monthlyMRTotal = monthlyMRCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend);
+    monthlyMRTotal = monthlyMRCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyCFSpend, monthlyMiscSpend);
     monthlyMRValuation = redemptionMultiplierMR(monthlyMRTotal);
 
-    monthlyURTotal = monthlyURCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend);
+    monthlyURTotal = monthlyURCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyCFSpend, monthlyMiscSpend);
     monthlyURValuation = redemptionMultiplierUR(monthlyURTotal);
 
     // set values in document
-    document.getElementById('monthlyTotal').innerHTML = Math.round(monthlySpendTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // document.getElementById('monthlyTotal').innerHTML = Math.round(monthlySpendTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-    document.getElementById('monthlyTotalMR').innerHTML = Math.round(monthlyMRTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.getElementById('monthlyTotalUR').innerHTML = Math.round(monthlyURTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // document.getElementById('monthlyTotalMR').innerHTML = Math.round(monthlyMRTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // document.getElementById('monthlyTotalUR').innerHTML = Math.round(monthlyURTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
     // document.getElementById('monthlyMRValuation').innerHTML = Math.round(monthlyMRValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     // document.getElementById('monthlyURValuation').innerHTML = Math.round(monthlyURValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -173,8 +174,6 @@ function getChaseAF(){
     var annualFee = 0;
     if (csr)
         annualFee += 450;
-    if (csp)
-        annualFee += 95;
     return annualFee;
 }
 function getAMEXAF(){
@@ -238,16 +237,15 @@ function redemptionMultiplierUR(monthlyURTotal){
     else if (document.getElementById('monthlyTravelRadio').checked == true){
         if (csr)
             return (monthlyURTotal * 1.5) / 100
-        else if (csp)
-            return (monthlyURTotal * 1.25) / 100
+
         else
             return monthlyURTotal / 100
     }
     else if (document.getElementById('monthlyTransferRadio').checked == true){
-        if (csr || csp)
+        if (csr)
             return monthlyURTotal * 2 / 100
         else{
-            M.toast({html: 'The Chase Sapphire Reserve or Chase Sapphire Preferred must be selected to redeem with Chase transfer partners.'})
+            M.toast({html: 'The Chase Sapphire Reserve must be selected to redeem with Chase transfer partners.'})
             return monthlyURTotal / 100  
         }
     }
@@ -263,45 +261,41 @@ function redemptionMultiplierMR(monthlyMRTotal){
         return monthlyMRTotal * 2 / 100
 }
 
-function monthlyURCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend){
-    var restaurantMultiplier = 1, travelMultiplier = 1, miscMultiplier = 1;
+function monthlyURCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyCFSpend, monthlyMiscSpend){
+    var restaurantMultiplier = 1, travelMultiplier = 1, miscMultiplier = 1, freedomMultiplier = 1;
 
     monthlyMiscSpend += monthlyGrocerySpend;      
 
-    if (cfu && csp && csr){                 //ttt     
-        travelMultiplier = 3;
-        restaurantMultiplier = 3;
+    if (cfu && cf && csr){                 //ttt     
+        travelMultiplier = restaurantMultiplier = 3;
+        freedomMultiplier = 5;
         miscMultiplier = 1.5;
-    } else if (cfu && csp && !csr){         //ttf
-        travelMultiplier = 2;
-        restaurantMultiplier = 2;
-        miscMultiplier = 1.5;
-    } else if (cfu && !csp && csr){         //tft
-        travelMultiplier = 3;
-        restaurantMultiplier = 3;
-        miscMultiplier = 1.5;
-    } else if (!cfu && csp && csr){         //ftt
-        travelMultiplier = 3;
-        restaurantMultiplier = 3;
-    } else if (cfu && !csp && !csr){        //tff
-        travelMultiplier = 1.5;
-        restaurantMultiplier = 1.5;
-        miscMultiplier = 1.5;
-    } else if (!cfu && csp && !csr){        //ftf
-        travelMultiplier = 2;
-        restaurantMultiplier = 2;
-    } else if (!cfu && !csp && csr){        //fft
+    } else if (cfu && cf && !csr){         //ttf
+        freedomMultiplier = 5;
+        miscMultiplier = travelMultiplier = restaurantMultiplier = 1.5;
+    } else if (cfu && !cf && csr){         //tft
+        travelMultiplier = restaurantMultiplier = 3;
+        freedomMultiplier = miscMultiplier = 1.5;
+    } else if (!cfu && cf && csr){         //ftt
+        travelMultiplier = restaurantMultiplier = 3;
+        freedomMultiplier = 5;
+    } else if (cfu && !cf && !csr){        //tff
+        restaurantMultiplier = travelMultiplier = freedomMultiplier = miscMultiplier= 1.5;
+    } else if (!cfu && cf && !csr){        //ftf
+        freedomMultiplier = 5;
+    } else if (!cfu && !cf && csr){        //fft
         travelMultiplier = 3;
         restaurantMultiplier = 3;
     } else {
         M.toast({html: 'Select at least one card from Chase for proper valuation.'})  
     }
-    return monthlyRestaurantSpend * restaurantMultiplier + monthlyFlightSpend * travelMultiplier + monthlyMiscSpend * miscMultiplier
+    return monthlyRestaurantSpend * restaurantMultiplier + monthlyFlightSpend * travelMultiplier + monthlyCFSpend * freedomMultiplier + monthlyMiscSpend * miscMultiplier
 }
 
-function monthlyMRCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyMiscSpend){
+function monthlyMRCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyCFSpend, monthlyMiscSpend){
     // calculations monthly MR valuation depending on card combinations and spend categories
     var restaurantMultiplier = 1, groceryMultiplier = 1, flightMultiplier = 1, miscMultiplier = 1;
+    monthlyMiscSpend += monthlyCFSpend;
 
     if (bbp && gold && plat){                                   //ttt
         flightMultiplier = 5;
@@ -403,15 +397,15 @@ function setCSR(){
         setValues();
     }
 }
-function setCSP(){
-    if (csp == true){
-        csp = false;
-        $("#cspToggle").html('<i class="material-icons">add</i>'); 
+function setCF(){
+    if (cf == true){
+        cf = false;
+        $("#cfToggle").html('<i class="material-icons">add</i>'); 
         setValues();
     }
     else{
-        csp = true;
-        $("#cspToggle").html('<i class="material-icons">check</i>');
+        cf = true;
+        $("#cfToggle").html('<i class="material-icons">check</i>');
         setValues();
     }
 }
