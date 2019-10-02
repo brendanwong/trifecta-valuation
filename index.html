@@ -110,7 +110,7 @@
         <div id="modal1" class="modal">
             <div class="modal-content">
                 <h4>Trifecta Calculator Info</h4>
-                <p>This is a category spend analyzer and visualization comparison of the Chase and American Express Trifectas over time. Sign up bonuses will be implemented in the near future.</p> 
+                <p>This is a spend valuation calculator and visualization of the Chase and American Express Trifectas over time. Sign up bonuses will be implemented in the near future.</p> 
                 <p>If applicable, the annual fees for each card is applied after the first year of calculation. <b> Factors such as benefits valuation, ease of credit use, current transfer partners for either bank, and other confounding variables such as American Express not being as widely accepted should be taken into account.</b> The valuation chart at the bottom is the amount of points earned multiplied by the redemption mutiplier, with benefits added and annual fee subtracted.</p>
                 <p>The source code and calculation logic can be found <a href="https://github.com/brendanwong/trifecta-valuation">here</a>.</p>
             </div>
@@ -150,7 +150,7 @@
                                 </div>
                                 <div class="card-content">
                                     <h5>AMEX Platinum</h5>
-                                    <p>$550 annual fee. 5X points for flights booked with airlines or through AMEX. 5X points for hotels booked on amextravel.com. $200 airline fee credit. Fee credit for Global Entry ($100) or TSA Precheck ($85). $100 Saks Fifth Avenue credit. $200 Uber credit. Priority Pass Select and Centurion Lounge access.</p>
+                                    <p>$550 annual fee. 5X points for flights/hotels booked with airlines or through AMEX. 5X points for hotels booked on amextravel.com. $200 airline fee credit. Fee credit for Global Entry ($100) or TSA Precheck ($85). $100 Saks Fifth Avenue credit. $200 Uber credit. Priority Pass Select and Centurion Lounge access.</p>
                                 </div>
                             </div>
                         </div>
@@ -240,7 +240,7 @@
                                 </div>
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">local_grocery_store</i>
-                                    <input value=400 id="monthlyGroceryInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <input value=500 id="monthlyGroceryInput" type="number" onClick="this.select();" onkeyup="setValues()">
                                     <label for="monthlyGroceryInput">US supermarkets</label>
                                 </div>
                             </div>
@@ -258,7 +258,7 @@
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">account_balance</i>
                                     <input value=100 id="freedomSpend" type="number" onClick="this.select();" onkeyup="setValues()">
-                                    <label for="freedomSpend">Freedom Category spend</label>
+                                    <label for="freedomSpend">Freedom category spend</label>
                                 </div>
                             </div>
                         </form>
@@ -270,7 +270,7 @@
                                 
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">credit_card</i>
-                                    <input value=1000 id="monthlyMiscInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <input value=2000 id="monthlyMiscInput" type="number" onClick="this.select();" onkeyup="setValues()">
                                     <label for="monthlyMiscInput">Non-category spend</label>
                                 </div>
                             </div>
@@ -288,7 +288,7 @@
                                 </div>
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">directions_car</i>
-                                    <input value=100 id="uberCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <input value=50 id="uberCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
                                     <label for="uberCreditInput">Uber credit</label>
                                 </div>
                             </div>
