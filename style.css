@@ -1,7 +1,6 @@
 /*remove number arrows in form*/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
@@ -9,26 +8,23 @@ input::-webkit-inner-spin-button {
 
 /*adjust radio button color*/
 [type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:before, [type="radio"].with-gap:checked + span:after {
- 
   border: 2px solid #ef5350  !important;
 }
- 
- 
- 
+
 [type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after {
- 
   background-color: #ef5350  !important;
 }
-
 
 
 /* label focus color */
  .input-field input:focus + label {
    color: black !important;
  }
+
  .material-icons.active{
  	color: black !important;
  }
+
  /* label underline focus color */
  .row .input-field input:focus {
    border-bottom: 1px solid black !important;
@@ -39,13 +35,19 @@ input::-webkit-inner-spin-button {
 h1,h2,h3,h4,h5{
 	color:#353535;
 }
+
 p{
 	color:#757778;
 }
-a,p,h1,h2,h3,h4,h5{
-	font-family: "Roboto", sans-serif;
-	    font-weight: 300;
 
+@font-face {
+  font-family: 'ayylmao';
+  src: URL('assets/ayylmao.ttf') format('truetype');
+}
+
+a,p,h1,h2,h3,h4,h5{
+	font-family: "ayylmao", "Roboto", sans-serif;
+    font-weight: 300;
 }
 
 
@@ -53,15 +55,14 @@ a,p,h1,h2,h3,h4,h5{
 #navbar {
   overflow: hidden;
   background-color: #ef5350;
-  padding: 50px 10px; /* Large padding which will shrink on scroll (using JS) */
-  transition: 0.3s; /* Adds a transition effect when the padding is decreased */
+  padding: 50px 10px; /* Large padding which will shrink on scroll */
+  transition: 0.3s;
   position: fixed; /* Sticky/fixed navbar */
   width: 100%;
-  top: 0; /* At the top */
+  top: 0;
   z-index: 99;
 }
 
-/* Style the navbar links */
 #navbar a {
   float: left;
   color: white;
@@ -74,26 +75,21 @@ a,p,h1,h2,h3,h4,h5{
   transition: 0.3s;
 }
 
-/* Style the logo */
 #navbar #logo {
   font-size: 35px;
-  /*font-weight: bold;*/
   transition: 0.3s;
 }
 
-/* Links on mouse-over */
 #navbar a:hover {
   /*background-color: #d32f2f;*/
   /*color: black;*/
 }
 
-/* Style the active/current link */
 #navbar a.active {
   background-color: dodgerblue;
   /*color: white;*/
 }
 
-/* Display some links to the right */
 #navbar-right {
   float: right;
 }
@@ -101,7 +97,7 @@ a,p,h1,h2,h3,h4,h5{
 /* Add responsiveness - on screens less than 580px wide, display the navbar vertically instead of horizontally */
 @media screen and (max-width: 580px) {
   #navbar {
-    padding: 20px 10px !important; /* Use !important to make sure that JavaScript doesn't override the padding on small screens */
+    padding: 20px 10px !important; 
   }
   #navbar a {
     float: none;
