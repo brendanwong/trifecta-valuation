@@ -32,7 +32,7 @@ function setValues(){
     ChaseBenefitsTotal = getChaseBenefits();
 
     // monthly calculations, spend total, point totals and valuations
-    monthlySpendTotal = monthlyRestaurantSpend + monthlyGrocerySpend + monthlyFlightSpend + monthlyMiscSpend;
+    monthlySpendTotal = monthlyRestaurantSpend + monthlyGrocerySpend + monthlyFlightSpend + monthlyCFSpend + monthlyMiscSpend;
 
     monthlyMRTotal = monthlyMRCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, monthlyFlightSpend, monthlyCFSpend, monthlyMiscSpend);
     monthlyMRValuation = redemptionMultiplierMR(monthlyMRTotal);
