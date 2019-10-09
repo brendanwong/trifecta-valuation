@@ -56,10 +56,8 @@ function setValues(){
 
     // set values in document
     document.getElementById('totalOutput').innerHTML = Math.round(yearlySpendTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    
     document.getElementById('totalAMEXBenefits').innerHTML = Math.round(AMEXBenefitsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById('totalChaseBenefits').innerHTML = Math.round(ChaseBenefitsTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    
     document.getElementById('totalMR').innerHTML = Math.round(yearlyMRTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById('totalUR').innerHTML = Math.round(yearlyURTotal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     
@@ -67,7 +65,6 @@ function setValues(){
     // document.getElementById('yearlyURValuation').innerHTML = Math.round(yearlyURValuation).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     chaseAF = getChaseAF();
     amexAF = getAMEXAF();
-
 
     document.getElementById('totalAMEXFees').innerHTML = amexAF.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById('totalChaseFees').innerHTML = chaseAF.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -276,7 +273,7 @@ function monthlyURCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, month
         travelMultiplier = restaurantMultiplier = 3;
         freedomMultiplier = 5;
     } else if (cfu && !cf && !csr){        //tff
-        restaurantMultiplier = travelMultiplier = freedomMultiplier = miscMultiplier= 1.5;
+        restaurantMultiplier = travelMultiplier = freedomMultiplier = miscMultiplier = 1.5;
     } else if (!cfu && cf && !csr){        //ftf
         freedomMultiplier = 5;
     } else if (!cfu && !cf && csr){        //fft
@@ -375,13 +372,11 @@ function setBBP(){
         bbp = false;
         $("#bbpToggle").html('<i class="material-icons">add</i>'); 
         setValues();
-
     }
     else{
         bbp = true;
         $("#bbpToggle").html('<i class="material-icons">check</i>');
         setValues();
-
     }
 }
 

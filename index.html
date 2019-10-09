@@ -48,7 +48,7 @@
         <title>Trifecta Valuation Calculator</title>
     </head>
 
-    <body onload="setValues()"style="padding-top: 135px;">
+    <body onload="setValues()" style="padding-top: 140px;">
         <!-- navbar -->
         <div id="navbar">
             <a href="#" id="logo">AMEX Trifecta vs. Chase Trifecta Valuation</a>
@@ -72,7 +72,7 @@
                 document.getElementById("navlink3").style.fontSize = "15px";
               } else {
                 document.getElementById("navbar").style.padding = "50px 10px";
-                document.getElementById("logo").style.fontSize = "35px";
+                document.getElementById("logo").style.fontSize = "30px";
                 document.getElementById("navlink").style.fontSize = "18px";
                 document.getElementById("navlink2").style.fontSize = "18px";
                 document.getElementById("navlink3").style.fontSize = "18px";
@@ -85,8 +85,8 @@
             <div class="modal-content">
                 <h4>Trifecta Calculator Info</h4>
                 <p>This is a spend valuation calculator and visualization of the Chase and American Express Trifectas over time. Sign up bonuses will be implemented in the near future.</p> 
-                <p>If applicable, the annual fees for each card is applied after the first year of calculation. <b> Factors such as benefits valuation, ease of credit use, current transfer partners for either bank, and other confounding variables such as American Express not being as widely accepted should be taken into account.</b> The valuation chart at the bottom is the amount of points earned multiplied by the redemption mutiplier, with benefits added and annual fee subtracted.</p>
-                <p>The source code and calculation logic can be found <a href="https://github.com/brendanwong/trifecta-valuation">here</a>.</p>
+                <p>If applicable, the annual fees for each card is applied after the first year of calculation. <b> Factors such as benefits valuation, ease of credit use, current transfer partners for either bank, and other confounding variables such as American Express not being as widely accepted should be taken into account.</b> The chart at the bottom is the amount of points earned multiplied by the redemption mutiplier per month. Benefits are added and annual fee is subtracted at the end of the first year.</p>
+                <p>The source code and calculation logic can be found <a target="_blank" href="https://github.com/brendanwong/trifecta-valuation">here</a>.</p>
             </div>
             <div class="modal-footer">
                 <a href="#!" class=" modal-action modal-close waves-effect waves-light red lighten-1 btn">Close</a>
@@ -114,7 +114,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s6">
-                    <h3 class="left-align">Cards</h3>
+                    <h4 class="left-align">Cards</h4>
                     <!-- top tier -->
                     <div class="row">
                         <div class="col s12 m6">
@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="card-content">
                                     <h5>AMEX Platinum</h5>
-                                    <p>$550 annual fee. 5X points for flights/hotels booked with airlines or through AMEX. 5X points for hotels booked on amextravel.com. $200 airline fee credit. Fee credit for Global Entry ($100) or TSA Precheck ($85). $100 Saks Fifth Avenue credit. $200 Uber credit. Priority Pass Select and Centurion Lounge access.</p>
+                                    <p>$550 annual fee. 5X points for flights/hotels booked with airlines or through AMEX. 5X points for hotels booked on amextravel.com. $200 airline fee credit. Up to $100 fee credit for Global Entry or TSA Precheck. $100 Saks Fifth Avenue credit. $200 Uber credit. Priority Pass Select and Centurion Lounge access.</p>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +137,7 @@
                                 </div>
                                 <div class="card-content">
                                     <h5>Chase Sapphire Reserve</h5>
-                                    <p>$450 annual fee. 3X points for travel and dining at restaurants worldwide. $300 all-inclusive travel credit. Increased travel redemption through Chase (1.5 cents per Ultimate Reward point for travel). Priority pass select access.</p>
+                                    <p>$450 annual fee. 3X points for travel and dining at restaurants worldwide. $300 all-inclusive travel credit. Increased travel redemption through Chase (1.5 cents per Ultimate Reward point for travel). Priority pass select access. Up to $100 Global Entry or TSA Precheck credit every 4 years.</p>
                                 </div>
                             </div>
                         </div>
@@ -164,7 +164,7 @@
                                 </div>
                                 <div class="card-content">
                                     <h5>Chase Freedom</h5>
-                                    <p>5X points for rotating categories each quarter of the year. Common categories include gas stations, grocery stores, and wholesale clubs. Refer to the Chase Freedom calendar for current bonus categories.</p>
+                                    <p>5X points for rotating categories each quarter of the year. Common categories include gas stations, grocery stores, and wholesale clubs. Refer to the Chase Freedom calendar for bonus categories.</p>
                                 </div>
                             </div>
                         </div>
@@ -200,7 +200,7 @@
 
                 <!-- right column start -->
                 <div class="col s6">
-                    <h3>Spend Categories</h3>
+                    <h4>Spend and Benefits</h4>
                     <h5>Monthly spend:</h5>
                     <div class="row">
                         <form class="col s12">
@@ -289,7 +289,7 @@
                             <div class="row">
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">fastfood</i>
-                                    <input value=85 id="monthlyDiningCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <input value=80 id="monthlyDiningCreditInput" type="number" onClick="this.select();" onkeyup="setValues()">
                                     <label for="monthlyDiningCreditInput">Dining credit</label>
                                 </div>
                                 <div class="input-field col s6">
@@ -312,7 +312,7 @@
                                 </div>
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">attach_money</i>
-                                    <input id="chaseMiscCreditsInput" type="number" onClick="this.select();" onkeyup="setValues()">
+                                    <input value=25 id="chaseMiscCreditsInput" type="number" onClick="this.select();" onkeyup="setValues()">
                                     <label for="chaseMiscCreditsInput">Other Chase benefits</label>
                                 </div>
                             </div>
@@ -368,7 +368,7 @@
             </div>
         </div>
 
-        <div id="charticles" class="container">
+        <div class="container">
             <canvas id="myChart" width="400" height="200"></canvas>
         </div>
 

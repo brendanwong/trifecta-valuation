@@ -10,3 +10,4 @@ TODO:
   * maybe sliders for varying public offers like 50-100k for plat
   * 3x for first year with freedom unlimited
 * make it actually work on mobile
+* variable graph time frame generation
