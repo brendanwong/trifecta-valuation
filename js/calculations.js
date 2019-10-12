@@ -26,6 +26,8 @@ function setValues(){
         monthlyFlightSpend = 0;
     if (isNaN(monthlyMiscSpend))
         monthlyMiscSpend = 0;
+    if (isNaN(monthlyCFSpend))
+        monthlyCFSpend = 0;
 
     // benefits input/validation
     AMEXBenefitsTotal = getAmexBenefits();
