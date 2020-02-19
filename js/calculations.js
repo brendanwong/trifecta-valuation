@@ -260,6 +260,9 @@ function monthlyURCalculation(monthlyRestaurantSpend, monthlyGrocerySpend, month
     var restaurantMultiplier = 1, travelMultiplier = 1, miscMultiplier = 1, freedomMultiplier = 1;
 
     monthlyMiscSpend += monthlyGrocerySpend;      
+    if (csr){
+        M.toast({html: 'NOTE: CSR values are not up to date with 2020 benefits.'})  
+    }
 
     if (cfu && cf && csr){                 //ttt     
         travelMultiplier = restaurantMultiplier = 3;
